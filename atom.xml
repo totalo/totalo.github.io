@@ -1,0 +1,529 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>这是一个技术分享的博客——totalo</title>
+  
+  
+  <link href="/atom.xml" rel="self"/>
+  
+  <link href="https://totalo.top/"/>
+  <updated>2021-03-07T04:57:58.592Z</updated>
+  <id>https://totalo.top/</id>
+  
+  <author>
+    <name>t0ta1o</name>
+    
+  </author>
+  
+  <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>JDK版本特性总结</title>
+    <link href="https://totalo.top/20210307/jdk-version/"/>
+    <id>https://totalo.top/20210307/jdk-version/</id>
+    <published>2021-03-07T04:32:17.000Z</published>
+    <updated>2021-03-07T04:57:58.592Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h2 id=&quot;JDK版本特性梳理&quot;&gt;&lt;a href=&quot;#JDK版本特性梳理&quot; class=&quot;headerlink&quot; title=&quot;JDK版本特性梳理&quot;&gt;&lt;/a&gt;JDK版本特性梳理&lt;/h2&gt;&lt;p&gt;主要介绍两个长版本JDK11以及从JDK8以后的一些特别的特性&lt;/p&gt;
+&lt;h3 id
+      
+    
+    </summary>
+    
+      <category term="学习" scheme="https://totalo.top/categories/%E5%AD%A6%E4%B9%A0/"/>
+    
+    
+      <category term="jdk" scheme="https://totalo.top/tags/jdk/"/>
+    
+      <category term="java" scheme="https://totalo.top/tags/java/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>JDK源码——ArrayList源码</title>
+    <link href="https://totalo.top/20200802/jdk-ArrayList/"/>
+    <id>https://totalo.top/20200802/jdk-ArrayList/</id>
+    <published>2020-08-02T12:05:13.000Z</published>
+    <updated>2021-03-07T04:21:12.746Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;blockquote&gt;
+&lt;p&gt;本文基于JDK1.8&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h5 id=&quot;0x-00-总体描述&quot;&gt;&lt;a href=&quot;#0x-00-总体描述&quot; class=&quot;headerlink&quot; title=&quot;0x 00 总体描述&quot;&gt;&lt;/a&gt;0x 00 总体描述&lt;
+      
+    
+    </summary>
+    
+      <category term="源码" scheme="https://totalo.top/categories/%E6%BA%90%E7%A0%81/"/>
+    
+    
+      <category term="Java" scheme="https://totalo.top/tags/Java/"/>
+    
+      <category term="源码" scheme="https://totalo.top/tags/%E6%BA%90%E7%A0%81/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>JDK源码——LinkedList源码</title>
+    <link href="https://totalo.top/20200802/jdk-linkedList/"/>
+    <id>https://totalo.top/20200802/jdk-linkedList/</id>
+    <published>2020-08-02T11:51:51.000Z</published>
+    <updated>2021-03-07T04:21:12.748Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;blockquote&gt;
+&lt;p&gt;本文基于jdk1.8&lt;br&gt;本文首发于本人博客：&lt;a href=&quot;https://totalo.top&quot;&gt;https://totalo.top&lt;/a&gt;&lt;br&gt;编程小白，正在学习，各位大佬指正呀，点点广告呀，谢谢！&lt;br&gt;I’m studying, 
+      
+    
+    </summary>
+    
+      <category term="源码" scheme="https://totalo.top/categories/%E6%BA%90%E7%A0%81/"/>
+    
+    
+      <category term="Java" scheme="https://totalo.top/tags/Java/"/>
+    
+      <category term="源码" scheme="https://totalo.top/tags/%E6%BA%90%E7%A0%81/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>深入理解AOP机制</title>
+    <link href="https://totalo.top/20200712/java-aop/"/>
+    <id>https://totalo.top/20200712/java-aop/</id>
+    <published>2020-07-12T08:31:28.000Z</published>
+    <updated>2021-03-07T04:21:12.742Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;blockquote&gt;
+&lt;p&gt;辛苦各位，点一下广告呀~thx&lt;br&gt;Hard work, click on the advertisement~thx&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h5 id=&quot;0x00-概述&quot;&gt;&lt;a href=&quot;#0x00-概述&quot; class=&quot;he
+      
+    
+    </summary>
+    
+      <category term="源码" scheme="https://totalo.top/categories/%E6%BA%90%E7%A0%81/"/>
+    
+    
+      <category term="Java" scheme="https://totalo.top/tags/Java/"/>
+    
+      <category term="源码" scheme="https://totalo.top/tags/%E6%BA%90%E7%A0%81/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>prototype-pattern</title>
+    <link href="https://totalo.top/20191122/prototype-pattern/"/>
+    <id>https://totalo.top/20191122/prototype-pattern/</id>
+    <published>2019-11-22T11:41:14.000Z</published>
+    <updated>2021-03-07T04:21:12.768Z</updated>
+    
+    <summary type="html">
+    
+    </summary>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>一致性键值数据库</title>
+    <link href="https://totalo.top/20191121/etcd/"/>
+    <id>https://totalo.top/20191121/etcd/</id>
+    <published>2019-11-21T15:34:06.000Z</published>
+    <updated>2021-03-07T04:21:12.737Z</updated>
+    
+    <summary type="html">
+    
+    </summary>
+    
+      <category term="数据库" scheme="https://totalo.top/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/"/>
+    
+    
+      <category term="etcd" scheme="https://totalo.top/tags/etcd/"/>
+    
+      <category term="数据库" scheme="https://totalo.top/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>设计模式之单例模式</title>
+    <link href="https://totalo.top/20191120/singleton-pattern/"/>
+    <id>https://totalo.top/20191120/singleton-pattern/</id>
+    <published>2019-11-20T12:43:32.000Z</published>
+    <updated>2021-03-07T04:21:12.769Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h3 id=&quot;单例模式&quot;&gt;&lt;a href=&quot;#单例模式&quot; class=&quot;headerlink&quot; title=&quot;单例模式&quot;&gt;&lt;/a&gt;单例模式&lt;/h3&gt;&lt;p&gt;单例模式属于创建型模式，&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;优点：&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;1、在内存里只有
+      
+    
+    </summary>
+    
+      <category term="设计模式" scheme="https://totalo.top/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
+    
+    
+      <category term="设计模式" scheme="https://totalo.top/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>GoF23种设计模式概述</title>
+    <link href="https://totalo.top/20191117/design-pattern-base/"/>
+    <id>https://totalo.top/20191117/design-pattern-base/</id>
+    <published>2019-11-17T12:30:50.000Z</published>
+    <updated>2021-03-07T04:21:12.733Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h4 id=&quot;设计模式有两种分类方法，（1）模式的目的（2）模式的作用范围&quot;&gt;&lt;a href=&quot;#设计模式有两种分类方法，（1）模式的目的（2）模式的作用范围&quot; class=&quot;headerlink&quot; title=&quot;设计模式有两种分类方法，（1）模式的目的（2）模式的作用范围&quot;&gt;
+      
+    
+    </summary>
+    
+      <category term="设计模式" scheme="https://totalo.top/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
+    
+    
+      <category term="设计模式" scheme="https://totalo.top/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>docker基础</title>
+    <link href="https://totalo.top/20191109/docker/"/>
+    <id>https://totalo.top/20191109/docker/</id>
+    <published>2019-11-09T09:36:09.000Z</published>
+    <updated>2021-03-07T04:21:12.734Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h3 id=&quot;单纯的说一下啊docker的一些基本操作&quot;&gt;&lt;a href=&quot;#单纯的说一下啊docker的一些基本操作&quot; class=&quot;headerlink&quot; title=&quot;单纯的说一下啊docker的一些基本操作&quot;&gt;&lt;/a&gt;单纯的说一下啊docker的一些基本操作&lt;/h3&gt;&lt;
+      
+    
+    </summary>
+    
+      <category term="开发" scheme="https://totalo.top/categories/%E5%BC%80%E5%8F%91/"/>
+    
+    
+      <category term="分布式服务框架" scheme="https://totalo.top/tags/%E5%88%86%E5%B8%83%E5%BC%8F%E6%9C%8D%E5%8A%A1%E6%A1%86%E6%9E%B6/"/>
+    
+      <category term="docker" scheme="https://totalo.top/tags/docker/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>内存溢出等问题现场处置步骤</title>
+    <link href="https://totalo.top/20191013/method-oom/"/>
+    <id>https://totalo.top/20191013/method-oom/</id>
+    <published>2019-10-13T11:15:31.000Z</published>
+    <updated>2021-03-07T04:21:12.752Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h4 id=&quot;内存溢出等问题现场处置步骤&quot;&gt;&lt;a href=&quot;#内存溢出等问题现场处置步骤&quot; class=&quot;headerlink&quot; title=&quot;内存溢出等问题现场处置步骤&quot;&gt;&lt;/a&gt;内存溢出等问题现场处置步骤&lt;/h4&gt;&lt;h5 id=&quot;0、说明&quot;&gt;&lt;a href=&quot;#0、说明&quot;
+      
+    
+    </summary>
+    
+      <category term="开发" scheme="https://totalo.top/categories/%E5%BC%80%E5%8F%91/"/>
+    
+    
+      <category term="Java" scheme="https://totalo.top/tags/Java/"/>
+    
+      <category term="JVM" scheme="https://totalo.top/tags/JVM/"/>
+    
+      <category term="线上问题处理" scheme="https://totalo.top/tags/%E7%BA%BF%E4%B8%8A%E9%97%AE%E9%A2%98%E5%A4%84%E7%90%86/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>时间复杂度求解</title>
+    <link href="https://totalo.top/20190916/o-n/"/>
+    <id>https://totalo.top/20190916/o-n/</id>
+    <published>2019-09-16T14:47:44.000Z</published>
+    <updated>2021-03-07T04:21:12.754Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;blockquote&gt;
+&lt;p&gt;在笔试或者面试中，我们常常会遇到求时间复杂度的题目，而较为常见的即为递归式的时间复杂度的求解，下面将对应的求解方法进行相关的总结&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h4 id=&quot;概述&quot;&gt;&lt;a href=&quot;#概述&quot; class=&quot;headerli
+      
+    
+    </summary>
+    
+      <category term="数据结构" scheme="https://totalo.top/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/"/>
+    
+    
+      <category term="面试" scheme="https://totalo.top/tags/%E9%9D%A2%E8%AF%95/"/>
+    
+      <category term="数据结构" scheme="https://totalo.top/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>实现业务幂等的几种方案</title>
+    <link href="https://totalo.top/20190914/idempotent/"/>
+    <id>https://totalo.top/20190914/idempotent/</id>
+    <published>2019-09-14T15:11:05.000Z</published>
+    <updated>2021-03-07T04:21:12.740Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;blockquote&gt;
+&lt;p&gt;此篇文章参考：&lt;a href=&quot;https://mp.weixin.qq.com/s/8hg9HNrfy0S67BKiLngfEw&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://mp.weixin.qq.com/s
+      
+    
+    </summary>
+    
+      <category term="开发" scheme="https://totalo.top/categories/%E5%BC%80%E5%8F%91/"/>
+    
+    
+      <category term="幂等" scheme="https://totalo.top/tags/%E5%B9%82%E7%AD%89/"/>
+    
+      <category term="重复提交问题" scheme="https://totalo.top/tags/%E9%87%8D%E5%A4%8D%E6%8F%90%E4%BA%A4%E9%97%AE%E9%A2%98/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>mybatis运行报错java.lang.UnsupportedOperationException</title>
+    <link href="https://totalo.top/20190911/mybatis-error-1/"/>
+    <id>https://totalo.top/20190911/mybatis-error-1/</id>
+    <published>2019-09-11T15:56:13.000Z</published>
+    <updated>2021-03-07T04:21:12.753Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;blockquote&gt;
+&lt;p&gt;关注&lt;a href=&quot;http://totalo.top&quot;&gt;http://totalo.top&lt;/a&gt; 更多源码、更多问题解决办法、更多积累，btw,点广告~&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h4 id=&quot;问题描述&quot;&gt;&lt;a href=&quot;#问题
+      
+    
+    </summary>
+    
+      <category term="中间件" scheme="https://totalo.top/categories/%E4%B8%AD%E9%97%B4%E4%BB%B6/"/>
+    
+    
+      <category term="mybatis" scheme="https://totalo.top/tags/mybatis/"/>
+    
+      <category term="error" scheme="https://totalo.top/tags/error/"/>
+    
+      <category term="xml" scheme="https://totalo.top/tags/xml/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Spring Boot 自定义控制台输出banner</title>
+    <link href="https://totalo.top/20190910/springboot-banner/"/>
+    <id>https://totalo.top/20190910/springboot-banner/</id>
+    <published>2019-09-10T15:27:55.000Z</published>
+    <updated>2021-03-07T04:21:12.771Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;今天在工作中发现公司原始项目中控制台输出不是SpringBoot默认的。如下图：&lt;br&gt;&lt;img src=&quot;https://img-blog.csdnimg.cn/2019080910464563.png&quot; alt=&quot;控制台输出banner&quot;&gt;&lt;br&gt;心中不免产生疑惑，那这
+      
+    
+    </summary>
+    
+      <category term="框架" scheme="https://totalo.top/categories/%E6%A1%86%E6%9E%B6/"/>
+    
+    
+      <category term="springBoot" scheme="https://totalo.top/tags/springBoot/"/>
+    
+      <category term="自定义" scheme="https://totalo.top/tags/%E8%87%AA%E5%AE%9A%E4%B9%89/"/>
+    
+      <category term="banner" scheme="https://totalo.top/tags/banner/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>dubbo这个东西呀</title>
+    <link href="https://totalo.top/20190903/dubbo/"/>
+    <id>https://totalo.top/20190903/dubbo/</id>
+    <published>2019-09-03T03:27:40.000Z</published>
+    <updated>2021-03-07T04:21:12.735Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;blockquote&gt;
+&lt;p&gt;回学校花了一个月工资，今天凌晨回到了租房，想想我的钱啊，真的难受啊，今天难得有点时间，详细总结一下dubbo这个东西吧，哈哈哈哈~&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h4 id=&quot;概述&quot;&gt;&lt;a href=&quot;#概述&quot; class=&quot;headerl
+      
+    
+    </summary>
+    
+      <category term="中间件" scheme="https://totalo.top/categories/%E4%B8%AD%E9%97%B4%E4%BB%B6/"/>
+    
+    
+      <category term="dubbo" scheme="https://totalo.top/tags/dubbo/"/>
+    
+      <category term="分布式服务框架" scheme="https://totalo.top/tags/%E5%88%86%E5%B8%83%E5%BC%8F%E6%9C%8D%E5%8A%A1%E6%A1%86%E6%9E%B6/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>git系列之gitignore文件</title>
+    <link href="https://totalo.top/20190818/gitignore/"/>
+    <id>https://totalo.top/20190818/gitignore/</id>
+    <published>2019-08-18T13:53:57.000Z</published>
+    <updated>2021-03-07T04:21:12.739Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;blockquote&gt;
+&lt;p&gt;在日常的开发过程中，避免不了使用git进行协作开发。但是对于每个人来说，系统环境都是不一样的，在开发过程中，ide产生的配置文件都是不同的，若每个人上传一套自己的配置这是不现实的。（当然也有，就是为方便对于每个系统下开发环境的一致性要求，但是这个是
+      
+    
+    </summary>
+    
+      <category term="工具" scheme="https://totalo.top/categories/%E5%B7%A5%E5%85%B7/"/>
+    
+    
+      <category term="git" scheme="https://totalo.top/tags/git/"/>
+    
+      <category term="note" scheme="https://totalo.top/tags/note/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>关于开源协议（需要用到趁机学习一波）</title>
+    <link href="https://totalo.top/20190811/about-license/"/>
+    <id>https://totalo.top/20190811/about-license/</id>
+    <published>2019-08-11T14:59:54.000Z</published>
+    <updated>2021-03-07T04:21:12.725Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;blockquote&gt;
+&lt;p&gt;hhhh,在Gayhu上分享项目，但是每次需要选择对应的开源协议，有点模糊，由此需要进行学习以及详细记录一下在gayhub上常见的一些开源协议~&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;常见的开源协议有GPL、LGPL、BSD、Apache、MP
+      
+    
+    </summary>
+    
+      <category term="工具" scheme="https://totalo.top/categories/%E5%B7%A5%E5%85%B7/"/>
+    
+    
+      <category term="开源协议" scheme="https://totalo.top/tags/%E5%BC%80%E6%BA%90%E5%8D%8F%E8%AE%AE/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>git---强大的代码托管工具</title>
+    <link href="https://totalo.top/20190807/git-info/"/>
+    <id>https://totalo.top/20190807/git-info/</id>
+    <published>2019-08-07T13:43:03.000Z</published>
+    <updated>2021-03-07T04:21:12.738Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h4 id=&quot;起源&quot;&gt;&lt;a href=&quot;#起源&quot; class=&quot;headerlink&quot; title=&quot;起源&quot;&gt;&lt;/a&gt;起源&lt;/h4&gt;&lt;p&gt;Git(读音为/gɪt/。)是一个开源的分布式版本控制系统，可以有效、高速地处理从很小到非常大的项目版本管理。 [1]  Git 是 Lin
+      
+    
+    </summary>
+    
+      <category term="工具" scheme="https://totalo.top/categories/%E5%B7%A5%E5%85%B7/"/>
+    
+    
+      <category term="git" scheme="https://totalo.top/tags/git/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>JDK源码——jdk源码阅读顺序</title>
+    <link href="https://totalo.top/20190617/jdk-source-code/"/>
+    <id>https://totalo.top/20190617/jdk-source-code/</id>
+    <published>2019-06-17T11:09:25.000Z</published>
+    <updated>2021-03-07T04:21:12.751Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;blockquote&gt;
+&lt;p&gt;近期开始阅读jdk源码，但是不知道从哪下手，根据各位大佬的建议，结合一下，记录如下： 1-4优先级递减&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h4 id=&quot;java-lang包&quot;&gt;&lt;a href=&quot;#java-lang包&quot; class=&quot;heade
+      
+    
+    </summary>
+    
+      <category term="源码" scheme="https://totalo.top/categories/%E6%BA%90%E7%A0%81/"/>
+    
+    
+      <category term="Java" scheme="https://totalo.top/tags/Java/"/>
+    
+      <category term="jdk" scheme="https://totalo.top/tags/jdk/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>二维数组中的查找</title>
+    <link href="https://totalo.top/20190615/jzoffer-01/"/>
+    <id>https://totalo.top/20190615/jzoffer-01/</id>
+    <published>2019-06-15T04:27:59.000Z</published>
+    <updated>2021-03-07T04:21:12.752Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h5 id=&quot;题目描述&quot;&gt;&lt;a href=&quot;#题目描述&quot; class=&quot;headerlink&quot; title=&quot;题目描述&quot;&gt;&lt;/a&gt;题目描述&lt;/h5&gt;&lt;p&gt;在一个二维数组中（每个一维数组的长度相同），每一行都按照从左到右递增的顺序排序，每一列都按照从上到下递增的顺序排序。请完成一
+      
+    
+    </summary>
+    
+      <category term="算法" scheme="https://totalo.top/categories/%E7%AE%97%E6%B3%95/"/>
+    
+    
+      <category term="Java" scheme="https://totalo.top/tags/Java/"/>
+    
+      <category term="剑指offer" scheme="https://totalo.top/tags/%E5%89%91%E6%8C%87offer/"/>
+    
+  </entry>
+  
+</feed>

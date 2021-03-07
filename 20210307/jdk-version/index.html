@@ -1,0 +1,675 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+  <meta name="renderer" content="webkit">
+  <meta name="google-site-verification" content="HJSuC0Hl5NSGNNBxkBM9Ls9yV_KrkQwRbJcACTEoyps">
+  <script data-ad-client="ca-pub-4545022751103525" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  <meta http-equiv="Cache-Control" content="no-transform">
+  <meta http-equiv="Cache-Control" content="no-siteapp">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="format-detection" content="telephone=no,email=no,adress=no">
+  <!-- Color theme for statusbar -->
+  <meta name="theme-color" content="#000000">
+  <!-- 强制页面在当前窗口以独立页面显示,防止别人在框架里调用页面 -->
+  <meta http-equiv="window-target" content="_top">
+  
+  
+  <title>JDK版本特性总结 | totalo-一个摆摊写代码的totalo</title>
+  <meta name="description" content="JDK版本特性梳理主要介绍两个长版本JDK11以及从JDK8以后的一些特别的特性 JDK81、DateJDK7 Date缺点1、所有的日期类都是可变的，因此他们都不是线程安全的，这是Java日期类最大的问题之一。 2、Java的日期/时间类的定义并不一致，在java.util和java.sql的包中都有日期类，此外 用于格式化和解析的类在java.text包中定义。 3、java.util.Dat">
+<meta name="keywords" content="jdk,java">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JDK版本特性总结">
+<meta property="og:url" content="https://totalo.top/20210307/jdk-version/index.html">
+<meta property="og:site_name" content="这是一个技术分享的博客——totalo">
+<meta property="og:description" content="JDK版本特性梳理主要介绍两个长版本JDK11以及从JDK8以后的一些特别的特性 JDK81、DateJDK7 Date缺点1、所有的日期类都是可变的，因此他们都不是线程安全的，这是Java日期类最大的问题之一。 2、Java的日期/时间类的定义并不一致，在java.util和java.sql的包中都有日期类，此外 用于格式化和解析的类在java.text包中定义。 3、java.util.Dat">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://totalo.top/20210307/jdk-version/f17ec93f-760f-4268-9a31-62b1ab78aede.png">
+<meta property="og:image" content="https://totalo.top/20210307/jdk-version/d9580f97-6bfb-4bc8-a172-153b8c8cfe1b.png">
+<meta property="og:image" content="https://totalo.top/20210307/jdk-version/ec7389c7-4368-4fce-a966-1d1da92b4e7c.png">
+<meta property="og:updated_time" content="2021-03-07T04:57:58.592Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="JDK版本特性总结">
+<meta name="twitter:description" content="JDK版本特性梳理主要介绍两个长版本JDK11以及从JDK8以后的一些特别的特性 JDK81、DateJDK7 Date缺点1、所有的日期类都是可变的，因此他们都不是线程安全的，这是Java日期类最大的问题之一。 2、Java的日期/时间类的定义并不一致，在java.util和java.sql的包中都有日期类，此外 用于格式化和解析的类在java.text包中定义。 3、java.util.Dat">
+<meta name="twitter:image" content="https://totalo.top/20210307/jdk-version/f17ec93f-760f-4268-9a31-62b1ab78aede.png">
+  <!-- Canonical links -->
+  <link rel="canonical" href="https://totalo.top/20210307/jdk-version/index.html">
+  
+    <link rel="alternate" href="/atom.xml" title="这是一个技术分享的博客——totalo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png" type="image/x-icon">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+  
+  
+  
+</head>
+
+
+<body class="main-center theme-black" itemscope itemtype="http://schema.org/WebPage">
+  <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+  <div class="slimContent">
+    <div class="navbar-header">
+      
+      
+      <div class="profile-block text-center">
+        <a id="avatar" href="https://github.com/totalo" target="_blank">
+          <img class="img-circle img-rotate" src="/images/avatar.jpg" width="200" height="200">
+        </a>
+        <h2 id="name" class="hidden-xs hidden-sm">t0ta1o</h2>
+        <h3 id="title" class="hidden-xs hidden-sm hidden-md">An open sourcer, Back-end R&amp;D engineer</h3>
+        <small id="location" class="text-muted hidden-xs hidden-sm"><i class="icon icon-map-marker"></i> Haidian, Beijing</small>
+      </div>
+      
+      <div class="search" id="search-form-wrap">
+
+    <form class="search-form sidebar-form">
+        <div class="input-group">
+            <input type="text" class="search-form-input form-control" placeholder="搜索" />
+            <span class="input-group-btn">
+                <button type="submit" class="search-form-submit btn btn-flat" onclick="return false;"><i class="icon icon-search"></i></button>
+            </span>
+        </div>
+    </form>
+    <div class="ins-search">
+  <div class="ins-search-mask"></div>
+  <div class="ins-search-container">
+    <div class="ins-input-wrapper">
+      <input type="text" class="ins-search-input" placeholder="想要查找什么..." x-webkit-speech />
+      <button type="button" class="close ins-close ins-selectable" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+    </div>
+    <div class="ins-section-wrapper">
+      <div class="ins-section-container"></div>
+    </div>
+  </div>
+</div>
+
+
+</div>
+      <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target="#main-navbar" aria-controls="main-navbar" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+    </div>
+    <nav id="main-navbar" class="collapse navbar-collapse" itemscope itemtype="http://schema.org/SiteNavigationElement" role="navigation">
+      <ul class="nav navbar-nav main-nav menu-highlight">
+        
+        
+        <li class="menu-item menu-item-home">
+          <a href="/.">
+            
+            <i class="icon icon-home-fill"></i>
+            
+            <span class="menu-title">首页</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives">
+            
+            <i class="icon icon-archives-fill"></i>
+            
+            <span class="menu-title">归档</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories">
+            
+            <i class="icon icon-folder"></i>
+            
+            <span class="menu-title">分类</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags">
+            
+            <i class="icon icon-tags"></i>
+            
+            <span class="menu-title">标签</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-repository">
+          <a href="/repository">
+            
+            <i class="icon icon-project"></i>
+            
+            <span class="menu-title">项目</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-links">
+          <a href="/links">
+            
+            <i class="icon icon-friendship"></i>
+            
+            <span class="menu-title">友链</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about">
+            
+            <i class="icon icon-cup-fill"></i>
+            
+            <span class="menu-title">关于</span>
+          </a>
+        </li>
+        
+      </ul>
+      
+	
+    <ul class="social-links">
+    	
+        <li><a href="https://github.com/totalo" target="_blank" title="Github" data-toggle=tooltip data-placement=top><i class="icon icon-github"></i></a></li>
+        
+        <li><a href="/atom.xml" target="_blank" title="Rss" data-toggle=tooltip data-placement=top><i class="icon icon-rss"></i></a></li>
+        
+    </ul>
+
+    </nav>
+  </div>
+</header>
+
+  
+    <aside class="sidebar" itemscope itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    
+      <div class="widget">
+    <h3 class="widget-title">公告</h3>
+    <div class="widget-body">
+        <div id="board">
+            <div class="content">
+                <p>学习学习学习！！！</br> 摆摊摆摊摆摊！！！</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">分类</h3>
+    <div class="widget-body">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/中间件/">中间件</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/学习/">学习</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/工具/">工具</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/开发/">开发</a><span class="category-list-count">6</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/数据库/">数据库</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/数据结构/">数据结构</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/框架/">框架</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/源码/">源码</a><span class="category-list-count">6</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/算法/">算法</a><span class="category-list-count">14</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/设计模式/">设计模式</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/面试/">面试</a><span class="category-list-count">2</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">标签</h3>
+    <div class="widget-body">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/GraphQL/">GraphQL</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Interview/">Interview</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JVM/">JVM</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java/">Java</a><span class="tag-list-count">24</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LeetCode/">LeetCode</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/PAT/">PAT</a><span class="tag-list-count">9</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Restful-api/">Restful api</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SQL/">SQL</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Spring-Boot/">Spring Boot</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/api/">api</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/banner/">banner</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/docker/">docker</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/dubbo/">dubbo</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/error/">error</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/etcd/">etcd</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/">git</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/gitpage/">gitpage</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/">hexo</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/java/">java</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/jdk/">jdk</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/jpa/">jpa</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mybatis/">mybatis</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/note/">note</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/springBoot/">springBoot</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/xml/">xml</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/分布式服务框架/">分布式服务框架</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/剑指offer/">剑指offer</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/幂等/">幂等</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/建站/">建站</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/开源协议/">开源协议</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数据库/">数据库</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数据结构/">数据结构</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/源码/">源码</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/线上问题处理/">线上问题处理</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/自定义/">自定义</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/设计模式/">设计模式</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/重复提交问题/">重复提交问题</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/错误/">错误</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/面试/">面试</a><span class="tag-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">标签云</h3>
+    <div class="widget-body tagcloud">
+      <a href="/tags/GraphQL/" style="font-size: 13px;">GraphQL</a> <a href="/tags/Interview/" style="font-size: 13.2px;">Interview</a> <a href="/tags/JVM/" style="font-size: 13px;">JVM</a> <a href="/tags/Java/" style="font-size: 14px;">Java</a> <a href="/tags/LeetCode/" style="font-size: 13.4px;">LeetCode</a> <a href="/tags/PAT/" style="font-size: 13.8px;">PAT</a> <a href="/tags/Restful-api/" style="font-size: 13px;">Restful api</a> <a href="/tags/SQL/" style="font-size: 13px;">SQL</a> <a href="/tags/Spring-Boot/" style="font-size: 13px;">Spring Boot</a> <a href="/tags/api/" style="font-size: 13px;">api</a> <a href="/tags/banner/" style="font-size: 13px;">banner</a> <a href="/tags/docker/" style="font-size: 13px;">docker</a> <a href="/tags/dubbo/" style="font-size: 13px;">dubbo</a> <a href="/tags/error/" style="font-size: 13px;">error</a> <a href="/tags/etcd/" style="font-size: 13px;">etcd</a> <a href="/tags/git/" style="font-size: 13.2px;">git</a> <a href="/tags/gitpage/" style="font-size: 13px;">gitpage</a> <a href="/tags/hexo/" style="font-size: 13px;">hexo</a> <a href="/tags/java/" style="font-size: 13px;">java</a> <a href="/tags/jdk/" style="font-size: 13.4px;">jdk</a> <a href="/tags/jpa/" style="font-size: 13px;">jpa</a> <a href="/tags/mybatis/" style="font-size: 13px;">mybatis</a> <a href="/tags/note/" style="font-size: 13px;">note</a> <a href="/tags/springBoot/" style="font-size: 13px;">springBoot</a> <a href="/tags/xml/" style="font-size: 13px;">xml</a> <a href="/tags/分布式服务框架/" style="font-size: 13.2px;">分布式服务框架</a> <a href="/tags/剑指offer/" style="font-size: 13px;">剑指offer</a> <a href="/tags/幂等/" style="font-size: 13px;">幂等</a> <a href="/tags/建站/" style="font-size: 13px;">建站</a> <a href="/tags/开源协议/" style="font-size: 13px;">开源协议</a> <a href="/tags/数据库/" style="font-size: 13px;">数据库</a> <a href="/tags/数据结构/" style="font-size: 13px;">数据结构</a> <a href="/tags/源码/" style="font-size: 13.6px;">源码</a> <a href="/tags/线上问题处理/" style="font-size: 13px;">线上问题处理</a> <a href="/tags/自定义/" style="font-size: 13px;">自定义</a> <a href="/tags/设计模式/" style="font-size: 13.2px;">设计模式</a> <a href="/tags/重复提交问题/" style="font-size: 13px;">重复提交问题</a> <a href="/tags/错误/" style="font-size: 13px;">错误</a> <a href="/tags/面试/" style="font-size: 13px;">面试</a>
+    </div>
+  </div>
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget-body">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/03/">三月 2021</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/08/">八月 2020</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/07/">七月 2020</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/11/">十一月 2019</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/10/">十月 2019</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/09/">九月 2019</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/08/">八月 2019</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">六月 2019</a><span class="archive-list-count">15</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">五月 2019</a><span class="archive-list-count">9</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget-body">
+      <ul class="recent-post-list list-unstyled no-thumbnail">
+        
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/学习/">学习</a>
+              </p>
+              <p class="item-title">
+                <a href="/20210307/jdk-version/" class="title">JDK版本特性总结</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2021-03-07T04:32:17.000Z" itemprop="datePublished">2021-03-07</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/源码/">源码</a>
+              </p>
+              <p class="item-title">
+                <a href="/20200802/jdk-ArrayList/" class="title">JDK源码——ArrayList源码</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2020-08-02T12:05:13.000Z" itemprop="datePublished">2020-08-02</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/源码/">源码</a>
+              </p>
+              <p class="item-title">
+                <a href="/20200802/jdk-linkedList/" class="title">JDK源码——LinkedList源码</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2020-08-02T11:51:51.000Z" itemprop="datePublished">2020-08-02</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/源码/">源码</a>
+              </p>
+              <p class="item-title">
+                <a href="/20200712/java-aop/" class="title">深入理解AOP机制</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2020-07-12T08:31:28.000Z" itemprop="datePublished">2020-07-12</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                
+              </p>
+              <p class="item-title">
+                <a href="/20191122/prototype-pattern/" class="title">prototype-pattern</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2019-11-22T11:41:14.000Z" itemprop="datePublished">2019-11-22</time>
+              </p>
+            </div>
+          </li>
+          
+      </ul>
+    </div>
+  </div>
+  
+
+    
+  </div>
+</aside>
+
+  
+  
+<main class="main" role="main">
+  <div class="content">
+  <article id="post-jdk-version" class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
+    
+    <div class="article-header">
+      
+        
+  
+    <h1 class="article-title" itemprop="name">
+      JDK版本特性总结
+    </h1>
+  
+
+      
+      <div class="article-meta">
+        <span class="article-date">
+    <i class="icon icon-calendar-check"></i>
+	<a href="/20210307/jdk-version/" class="article-date">
+	  <time datetime="2021-03-07T04:32:17.000Z" itemprop="datePublished">2021-03-07</time>
+	</a>
+</span>
+        
+  <span class="article-category">
+    <i class="icon icon-folder"></i>
+    <a class="article-category-link" href="/categories/学习/">学习</a>
+  </span>
+
+        
+  <span class="article-tag">
+    <i class="icon icon-tags"></i>
+	<a class="article-tag-link" href="/tags/java/">java</a>, <a class="article-tag-link" href="/tags/jdk/">jdk</a>
+  </span>
+
+
+        
+	<span class="article-read hidden-xs">
+	    <i class="icon icon-eye-fill" aria-hidden="true"></i>
+	    <span id="busuanzi_container_page_pv">
+			<span id="busuanzi_value_page_pv">0</span>
+		</span>
+	</span>
+
+
+        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/20210307/jdk-version/#comments" class="article-comment-link">评论</a></span>
+        
+	
+		<span class="post-wordcount hidden-xs" itemprop="wordCount">字数统计: 3.2k(字)</span>
+	
+	
+		<span class="post-readcount hidden-xs" itemprop="timeRequired">阅读时长: 12(分)</span>
+	
+
+      </div>
+    </div>
+	<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+	<!-- 文章-title -->
+	<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-client="ca-pub-4545022751103525"
+     data-ad-slot="8043353817"
+     data-ad-format="auto"
+     data-full-width-responsive="true">
+	 </ins>
+	<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+	</script>
+    <div class="article-entry marked-body" itemprop="articleBody">
+      
+        <h2 id="JDK版本特性梳理"><a href="#JDK版本特性梳理" class="headerlink" title="JDK版本特性梳理"></a>JDK版本特性梳理</h2><p>主要介绍两个长版本JDK11以及从JDK8以后的一些特别的特性</p>
+<h3 id="JDK8"><a href="#JDK8" class="headerlink" title="JDK8"></a>JDK8</h3><p>1、Date<br>JDK7 Date缺点<br>1、所有的日期类都是可变的，因此他们都不是线程安全的，这是Java日期类最大的问题之一。</p>
+<p>2、Java的日期/时间类的定义并不一致，在java.util和java.sql的包中都有日期类，此外 用于格式化和解析的类在java.text包中定义。</p>
+<p>3、java.util.Date同时包含日期和时间，而java.sql.Date仅包含日期，将其纳入java.sql 包并不合理。另外这两个类都有相同的名字，这本身就是一个非常糟糕的设计。对于时间、时间戳、 格式化以及解析，并没有一些明确定义的类。对于格式化和解析的需求，我们有java.text.DateFormat 抽象类，但通常情况下，SimpleDateFormat类被用于此类需求   </p>
+<p>4、日期类并不提供国际化，没有时区支持，因此Java引入了java.util.Calendar和 java.util.TimeZone类，但他们同样存在上述所有的问题</p>
+<h4 id="JDK8-Date优势"><a href="#JDK8-Date优势" class="headerlink" title="JDK8 Date优势"></a>JDK8 Date优势</h4><p>1、不变性：新的日期/时间API中，所有的类都是不可变的，这对多线程环境有好处。</p>
+<p>2、关注点分离：新的API将人可读的日期时间和机器时间（unix timestamp）明确分离，它为日期（Date）、 时间（Time）、日期时间（DateTime）、时间戳（unix timestamp）以及时区定义了不同的类。 </p>
+<p>3、清晰：在所有的类中，方法都被明确定义用以完成相同的行为。举个例子，要拿到当前实例我们可以使用now() 方法，在所有的类中都定义了format()和parse()方法，而不是像以前那样专门有一个独立的类。为了更好的处理问 题，所有的类都使用了工厂模式和策略模式，一旦你使用了其中某个类的方法，与其他类协同工作并不困难。</p>
+<p>4、实用操作：所有新的日期/时间API类都实现了一系列方法用以完成通用的任务，如：加、减、格式化、 解析、从日期/时间中提取单独部分，等等。 </p>
+<p>5、可扩展性：新的日期/时间API是工作在ISO-8601日历系统上的，但我们也可以将其应用在非IOS的日历上。<br>JDK8 Date新增字段</p>
+<p>Java.time包中的是类是不可变且线程安全的。新的时间及日期API位于java.time中，java8 time包下关键字段解读。<br>属性含义Instant 代表的是时间戳LocalDate 代表日期，比如2020-01-14LocalTime 代表时刻，比如12:59:59LocalDateTime 代表具体时间 2020-01-12 12:22:26ZonedDateTime 代表一个包含时区的完整的日期时间，偏移量是以UTC/  格林威治时间为基准的Period 代表时间段ZoneOffset 代表时区偏移量，比如：+8:00Clock 代表时钟，比如获取目前美国纽约的时间获取当前时间<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Instant instant = Instant.now(); <span class="comment">//获取当前时间戳</span></span><br><span class="line">LocalDate localDate = LocalDate.now();  <span class="comment">//获取当前日期</span></span><br><span class="line">LocalTime localTime = LocalTime.now();  <span class="comment">//获取当前时刻</span></span><br><span class="line">LocalDateTime localDateTime = LocalDateTime.now();  <span class="comment">//获取当前具体时间</span></span><br><span class="line">ZonedDateTime zonedDateTime = ZonedDateTime.now();   <span class="comment">//获取带有时区的时间</span></span><br></pre></td></tr></table></figure></p>
+<h3 id="JDK9"><a href="#JDK9" class="headerlink" title="JDK9"></a>JDK9</h3><p>1、String 底层结构类型都是char[]， 替换为byte[] 数组，节省了空间和提高性能。</p>
+<p>之前最小单位一直是一个char，占2个字节，也就是两个byte，但是JDK8是基于latin1的，而该编码可以用1个byte标识，所以当数据明明可以用到一个byte，却使用了1个char 即两个byte，多出了一个byte空间。<br>JDK9基于ISO\latin1\UTF-16，latin1和ISO用一个byte标识，UTF-16两个byte标识，JDK9会自动识别用哪个编码，当数据用1byte，就会使用ISO或者latin1,当数据满2个byte时，自动使用UTF-16.<br>同理：StringBuilder、StringBuffer也更换了底层数据结构<br>JDK10</p>
+<p>2、增加局部变量var<br>将前端思想var关键字引入Java，自动检测所属类型，但是不能为null（不能判断具体类型）<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">test1</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> number = <span class="number">10</span>;</span><br><span class="line">    <span class="keyword">var</span> str = <span class="string">"i like java"</span>;</span><br><span class="line">    <span class="keyword">var</span> list = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">    <span class="keyword">var</span> map = <span class="keyword">new</span> HashMap&lt;&gt;();</span><br><span class="line">    <span class="keyword">var</span> set = <span class="keyword">new</span> HashSet&lt;&gt;();</span><br><span class="line"></span><br><span class="line">    list.add(<span class="string">"test var is list"</span>);</span><br><span class="line"></span><br><span class="line">    map.put(<span class="string">"1"</span>, <span class="string">"test var is map"</span>);</span><br><span class="line"></span><br><span class="line">    set.add(<span class="string">"test var is set"</span>);</span><br><span class="line"></span><br><span class="line">    System.out.println(number);</span><br><span class="line"></span><br><span class="line">    System.out.println(str);</span><br><span class="line"></span><br><span class="line">    System.out.println(list.toString());</span><br><span class="line"></span><br><span class="line">    System.out.println(map.toString());</span><br><span class="line"></span><br><span class="line">    System.out.println(set.toString());</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>// 结果如下：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">10</span><br><span class="line">i like java</span><br><span class="line">[test var is list]</span><br><span class="line">&#123;1=test var is map&#125;</span><br><span class="line">[test var is set]</span><br></pre></td></tr></table></figure></p>
+<h3 id="2、并行Full-GC的G1"><a href="#2、并行Full-GC的G1" class="headerlink" title="2、并行Full GC的G1"></a>2、并行Full GC的G1</h3><p>JDK10通过并行Full GC，改善G1延迟。G1垃圾收集器在JDK9中是默认的，以前的默认值并行收集器有一个并行的Full GC。为了尽量减少对使用GC用户的影响。G1的Full GC也应该并行。</p>
+<p>G1垃圾收集器的设计目的是避免Full 手机，但是集合不能足够快地回收内存，就会出现完全GC，目前对G1的Full GC的实现使用了单线程-清除-压缩算法。JDK10使用并行优化标记-清除-压缩算法。并且使用Young和Mixed收集器相同的线程数量。线程的数量可以由-XX:ParallelGCThreads选项来控制，但是这也会影响用Young和Mixed收集器的线程数量。</p>
+<h3 id="3、应用数据共享（CDS）"><a href="#3、应用数据共享（CDS）" class="headerlink" title="3、应用数据共享（CDS）"></a>3、应用数据共享（CDS）</h3><p>为了提高启动和内存占用，扩展现有的类数据共享特性。允许将应用程序类放置在共享档案中。</p>
+<ul>
+<li>通过在不同的Java进程间共享公共类元数据来减少占用空间。</li>
+<li>提升启动时间</li>
+<li>CDS允许将来自JDK的运行时映像文件的归档类和应用程序类加载到内置平台和系统类加载器中。</li>
+<li>CDS允许将归档类加载到自定义类加载器中。<br>（CDS 即Class Data Sharing ，通过一组核心系统类比如java.lang.String，装载到共享内存中，可以在多个JVM中共享这些类）<h3 id="JDK11"><a href="#JDK11" class="headerlink" title="JDK11"></a>JDK11</h3></li>
+</ul>
+<p>1、新的Epsilon垃圾收集器（Experimental）<br>一个处理内存分配但不实现任何实际内存回收机制的GC，一旦可用堆内存用完，JVM就会退出。<br>主要用途：</p>
+<ul>
+<li>性能测试-过滤GC带来的性能假象</li>
+<li>内存压力测试：应该分配不超过1GB的内存, 我们可以使用-Xmx1g –XX:+UseEpsilonGC, 如果程序有问题, 则程序会崩溃</li>
+<li>非常短的JOB任务：对于这种任务，接受GC清理堆都是浪费空间</li>
+<li>VM接口测试</li>
+<li>Last-drop延迟&amp;吞吐改进</li>
+</ul>
+<h3 id="2、ZGC（Experimental）"><a href="#2、ZGC（Experimental）" class="headerlink" title="2、ZGC（Experimental）"></a>2、ZGC（Experimental）</h3><p>JDK11最为瞩目的功能，没有之一。GC暂停时间不会超过10ms，既能处理几百兆的小堆，也能处理几个T的大堆（OMG），和G1相比，应用吞吐能力不会下降超过15%。<br>ZGC的设计目标是：支持TB级内存容量，暂停时间低（&lt;10ms），对整个程序吞吐量的影响小于15%。 将来还可以扩展实现机制，以支持不少令人兴奋的功能，例如多层堆（即热对象置于DRAM和冷对象置于NVMe闪存），或压缩堆。</p>
+<h3 id="ZGC原理"><a href="#ZGC原理" class="headerlink" title="ZGC原理"></a>ZGC原理</h3><p>与ParNew和G1类似，ZGC也采用标记-复制算法，不过ZGC对该算法进行了重大改进：在标记、转移和重定位节点几乎都是并发的。这是ZGC实现停顿时间小于10ms目标的最关键原因。</p>
+<p><img src="../jdk-version/f17ec93f-760f-4268-9a31-62b1ab78aede.png" alt="G1复制过程"><br>    G1中标记-复制算法过程</p>
+<p><img src="../jdk-version/d9580f97-6bfb-4bc8-a172-153b8c8cfe1b.png" alt="G1复制过程"><br>    ZGC垃圾回收周期</p>
+<p>ZGC只有三个STW阶段：初始标记，再标记，初始转移。其中，初始标记和初始转移分别都只需要扫描所有GC Roots，其处理时间和GC Roots的数量成正比，一般情况耗时非常短；再标记阶段STW时间很短，最多1ms，超过1ms则再次进入并发标记阶段。即，ZGC几乎所有暂停都只依赖于GC Roots集合大小，停顿时间不会随着堆的大小或者活跃对象的大小而增加。与ZGC对比，G1的转移阶段完全STW的，且停顿时间随存活对象的大小增加而增加。</p>
+<h3 id="ZGC关键技术"><a href="#ZGC关键技术" class="headerlink" title="ZGC关键技术"></a>ZGC关键技术</h3><p>ZGC通过着色指针和读屏障技术，解决了转移过程中准确访问对象的问题，实现了并发转移。大致原理描述如下：并发转移中“并发”意味着GC线程在转移对象的过程中，应用线程也在不停地访问对象。假设对象发生转移，但对象地址未及时更新，那么应用线程可能访问到旧地址，从而造成错误。而在ZGC中，应用线程访问对象将触发“读屏障”，如果发现对象被移动了，那么“读屏障”会把读出来的指针更新到对象的新地址上，这样应用线程始终访问的都是对象的新地址。那么，JVM是如何判断对象被移动过呢？就是利用对象引用的地址，即着色指针。下面介绍着色指针和读屏障技术细节。</p>
+<h3 id="着色指针"><a href="#着色指针" class="headerlink" title="着色指针"></a>着色指针</h3><p>着色指针是一种将信息存储在指针的技术<br>ZGC仅支持64位系统，它把64位虚拟地址空间划分为多个子空间，如下图所示：<br><img src="../jdk-version/ec7389c7-4368-4fce-a966-1d1da92b4e7c.png" alt></p>
+<p>其中，[0~4TB) 对应Java堆，[4TB ~ 8TB) 称为M0地址空间，[8TB ~ 12TB) 称为M1地址空间，[12TB ~ 16TB) 预留未使用，[16TB ~ 20TB) 称为Remapped空间。<br>当应用程序创建对象时，首先在堆空间申请一个虚拟地址，但该虚拟地址并不会映射到真正的物理地址。ZGC同时会为该对象在M0、M1和Remapped地址空间分别申请一个虚拟地址，且这三个虚拟地址对应同一个物理地址，但这三个空间在同一时间有且只有一个空间有效。ZGC之所以设置三个虚拟地址空间，是因为它使用“空间换时间”思想，去降低GC停顿时间。“空间换时间”中的空间是虚拟空间，而不是真正的物理空间。<br>与上述地址空间划分相对应，ZGC实际仅使用64位地址空间的第0~41位，而第42~45位存储元数据，第47~63位固定为0。</p>
+<p>Linux下64位指针的高18位不能用来寻址，所有不能使用；<br>Finalizable：表示是否只能通过finalize()方法才能被访问到，其他途径不行；<br>Remapped：表示是否进入了重分配集（即被移动过）；<br>Marked1、Marked0：表示对象的三色标记状态；<br>最后42用来存对象地址，最大支持4T；</p>
+<h3 id="读屏障"><a href="#读屏障" class="headerlink" title="读屏障"></a>读屏障</h3><p>读屏障是JVM向应用代码插入一小段代码的技术。当应用线程从堆中读取对象引用时，就会执行这段代码。需要注意的是，仅“从堆中读取对象引用”才会触发这段代码。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Object o = obj.FieldA   <span class="comment">// 从堆中读取引用，需要加入屏障</span></span><br><span class="line">&lt;Load barrier&gt;</span><br><span class="line">Object p = o  <span class="comment">// 无需加入屏障，因为不是从堆中读取引用</span></span><br><span class="line">o.dosomething() <span class="comment">// 无需加入屏障，因为不是从堆中读取引用</span></span><br><span class="line"><span class="keyword">int</span> i =  obj.FieldB  <span class="comment">//无需加入屏障，因为不是对象引用</span></span><br></pre></td></tr></table></figure></p>
+<h3 id="3、完全支持Linux-容器（包含Docker）"><a href="#3、完全支持Linux-容器（包含Docker）" class="headerlink" title="3、完全支持Linux 容器（包含Docker）"></a>3、完全支持Linux 容器（包含Docker）</h3><p>在Docker容器中运行的Java应用程序设置内存大小和CPU使用率后，会导致应用程序的性能下降。这是因为Java应用程序没有意识到正在容器中运行。<br>此版本可以识别由容器控制组设置约束，可以在容器中使用内存和CPU约束来直接管理Java应用程序。</p>
+<ul>
+<li>遵循容器中设置的内存限制</li>
+<li>在容器中设置可用的CPU和CPU约束</li>
+<li>在Docker的各个平台均有效</li>
+<li>容器内存限制：Jdk9以前无法市北容器使用标志设置的内存限制和CPU限制，而在JDK10中内存限制会自动被识别并且强制执行。</li>
+</ul>
+<h3 id="JDK14"><a href="#JDK14" class="headerlink" title="JDK14"></a>JDK14</h3><h3 id="1、switch优化-JDK12开始，14最终版"><a href="#1、switch优化-JDK12开始，14最终版" class="headerlink" title="1、switch优化(JDK12开始，14最终版)"></a>1、switch优化(JDK12开始，14最终版)</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">test1</span><span class="params">()</span> </span>&#123;</span><br><span class="line">   <span class="keyword">int</span> k = <span class="number">2</span>;</span><br><span class="line">   String result = <span class="keyword">switch</span> (k) &#123;</span><br><span class="line">      <span class="keyword">case</span>  <span class="number">1</span> -&gt; <span class="string">"one"</span>;</span><br><span class="line">      <span class="keyword">case</span>  <span class="number">2</span> -&gt; <span class="string">"two"</span>;</span><br><span class="line">      <span class="keyword">default</span> -&gt; <span class="string">"many"</span>;</span><br><span class="line">   &#125;;</span><br><span class="line">   System.out.println(result);</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 结果显示</span></span><br><span class="line">two</span><br></pre></td></tr></table></figure>
+<h3 id="2、删除CMS垃圾回收器"><a href="#2、删除CMS垃圾回收器" class="headerlink" title="2、删除CMS垃圾回收器"></a>2、删除CMS垃圾回收器</h3><p>Concurrent Mark Sweep（CMS）垃圾回收器在JDK 9中被声明为废弃的。在JDK 14中，CMS被移除。</p>
+<h3 id="3、新增记录类型（Experimental）"><a href="#3、新增记录类型（Experimental）" class="headerlink" title="3、新增记录类型（Experimental）"></a>3、新增记录类型（Experimental）</h3><p>原来：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Point</span> </span>&#123;</span><br><span class="line">  <span class="keyword">private</span> <span class="keyword">final</span> <span class="keyword">double</span> x;</span><br><span class="line">  <span class="keyword">private</span> <span class="keyword">final</span> <span class="keyword">double</span> y;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="title">Point</span><span class="params">(<span class="keyword">double</span> x, <span class="keyword">double</span> y)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.x = x;</span><br><span class="line">    <span class="keyword">this</span>.y = y;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">double</span> <span class="title">getX</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> x;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">double</span> <span class="title">getY</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> y;</span><br><span class="line">  &#125;&#125;</span><br></pre></td></tr></table></figure></p>
+<p>在JDK14：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> record <span class="title">Point</span><span class="params">(<span class="keyword">double</span> x, <span class="keyword">double</span> y)</span> </span>&#123; &#125;</span><br></pre></td></tr></table></figure></p>
+<p>还可以：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">record <span class="title">Range</span><span class="params">(<span class="keyword">int</span> min, <span class="keyword">int</span> max)</span> </span>&#123;</span><br><span class="line">  Range &#123;</span><br><span class="line">    <span class="keyword">if</span> (min &gt; max)</span><br><span class="line">      <span class="keyword">throw</span> <span class="keyword">new</span> IllegalArgumentException(“Max must be &gt;= min”);</span><br><span class="line">  &#125;&#125;</span><br></pre></td></tr></table></figure></p>
+<h3 id="4、instanceof的模式匹配"><a href="#4、instanceof的模式匹配" class="headerlink" title="4、instanceof的模式匹配"></a>4、instanceof的模式匹配</h3><p>以前：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">oldWay</span><span class="params">(Object obj)</span> </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (obj <span class="keyword">instanceof</span> String) &#123;</span><br><span class="line">    String str = (String) obj;</span><br><span class="line">    System.out.println(str.length());</span><br><span class="line">  &#125;&#125;</span><br></pre></td></tr></table></figure></p>
+<p>现在：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">patternMatching</span><span class="params">(Object obj)</span> </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (obj <span class="keyword">instanceof</span> String str) &#123;</span><br><span class="line">    System.out.println(str.length());</span><br><span class="line">  &#125;&#125;</span><br></pre></td></tr></table></figure></p>
+<blockquote>
+<p>参考：</p>
+<p><a href="https://tech.meituan.com/2020/08/06/new-zgc-practice-in-meituan.html" target="_blank" rel="noopener">https://tech.meituan.com/2020/08/06/new-zgc-practice-in-meituan.html</a></p>
+</blockquote>
+
+	
+      
+    </div>
+    <div class="article-footer">
+      <blockquote class="mt-2x">
+  <ul class="post-copyright list-unstyled">
+    
+    <li class="post-copyright-link hidden-xs">
+      <strong>本文链接：</strong>
+      <a href="https://totalo.top/20210307/jdk-version/" title="JDK版本特性总结" target="_blank" rel="external">https://totalo.top/20210307/jdk-version/</a>
+    </li>
+    
+    <li class="post-copyright-license">
+      <strong>版权声明： </strong> 本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by/4.0/deed.zh" target="_blank" rel="external">CC BY 4.0 CN协议</a> 许可协议。转载请注明出处！
+    </li>
+  </ul>
+</blockquote>
+
+
+<div class="panel panel-default panel-badger">
+  <div class="panel-body">
+    <figure class="media">
+      <div class="media-left">
+        <a href="https://github.com/totalo" target="_blank" class="img-burn thumb-sm visible-lg">
+          <img src="/images/avatar.jpg" class="img-rounded w-full" alt="">
+        </a>
+      </div>
+      <div class="media-body">
+        <h3 class="media-heading"><a href="https://github.com/totalo" target="_blank"><span class="text-dark">t0ta1o</span><small class="ml-1x">An open sourcer, Back-end R&amp;D engineer</small></a></h3>
+        <div>Hardwork makes lucky dog.</div>
+      </div>
+    </figure>
+  </div>
+</div>
+
+
+    </div>
+  </article>
+  
+    
+  <section id="comments">
+  	
+      <div id="lv-container" data-id="city" data-uid="MTAyMC80NjYxMC8yMzEyMA==">
+        <noscript> 为正常使用来必力评论功能请激活JavaScript</noscript>
+      </div>    
+    
+  </section>
+
+
+  
+</div>
+
+  <nav class="bar bar-footer clearfix" data-stick-bottom>
+  <div class="bar-inner">
+  
+  <ul class="pager pull-left">
+    
+    
+    <li class="next">
+      <a href="/20200802/jdk-ArrayList/" title="JDK源码——ArrayList源码"><span>下一篇&nbsp;&nbsp;</span><i class="icon icon-angle-right" aria-hidden="true"></i></a>
+    </li>
+    
+    
+  </ul>
+  
+  
+  <!-- Button trigger modal -->
+  <button type="button" class="btn btn-fancy btn-donate pop-onhover bg-gradient-warning" data-toggle="modal" data-target="#donateModal"><span>赏</span></button>
+  <!-- <div class="wave-icon wave-icon-danger btn-donate" data-toggle="modal" data-target="#donateModal">
+    <div class="wave-circle"><span class="icon"><i class="icon icon-bill"></i></span></div>
+  </div> -->
+  
+  
+  <div class="bar-right">
+    
+    <div class="share-component" data-sites="weibo,qq,wechat" data-mobile-sites="weibo,qq,qzone"></div>
+    
+  </div>
+  </div>
+</nav>
+  
+<!-- Modal -->
+<div class="modal modal-center modal-small modal-xs-full fade" id="donateModal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content donate">
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+      <div class="modal-body">
+        <div class="donate-box">
+          <div class="donate-head">
+            <p>感谢您的支持，我会继续努力的!</p>
+          </div>
+          <div class="tab-content">
+            <div role="tabpanel" class="tab-pane fade active in" id="alipay">
+              <div class="donate-payimg">
+                <img src="/images/donate/alipayimg.png" alt="扫码支持" title="扫一扫" />
+              </div>
+              <p class="text-muted mv">扫码打赏，你说多少就多少</p>
+              <p class="text-grey">打开支付宝扫一扫，即可进行扫码打赏哦</p>
+            </div>
+            <div role="tabpanel" class="tab-pane fade" id="wechatpay">
+              <div class="donate-payimg">
+                <img src="/images/donate/wechatpayimg.png" alt="扫码支持" title="扫一扫" />
+              </div>
+              <p class="text-muted mv">扫码打赏，你说多少就多少</p>
+              <p class="text-grey">打开微信扫一扫，即可进行扫码打赏哦</p>
+            </div>
+          </div>
+          <div class="donate-footer">
+            <ul class="nav nav-tabs nav-justified" role="tablist">
+              <li role="presentation" class="active">
+                <a href="#alipay" id="alipay-tab" role="tab" data-toggle="tab" aria-controls="alipay" aria-expanded="true"><i class="icon icon-alipay"></i> 支付宝</a>
+              </li>
+              <li role="presentation" class="">
+                <a href="#wechatpay" role="tab" id="wechatpay-tab" data-toggle="tab" aria-controls="wechatpay" aria-expanded="false"><i class="icon icon-wepay"></i> 微信支付</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+</main>
+
+  <footer class="footer" itemscope itemtype="http://schema.org/WPFooter">
+	
+	
+    <ul class="social-links">
+    	
+        <li><a href="https://github.com/totalo" target="_blank" title="Github" data-toggle=tooltip data-placement=top><i class="icon icon-github"></i></a></li>
+        
+        <li><a href="/atom.xml" target="_blank" title="Rss" data-toggle=tooltip data-placement=top><i class="icon icon-rss"></i></a></li>
+        
+    </ul>
+
+    <div class="copyright">
+    	
+        &copy;2021 t0ta1o
+        
+		<br>
+		<span id="busuanzi_container_site_uv"> 
+			本站访客总数：<span id="busuanzi_value_site_uv"></span>
+		</span>
+        <div class="publishby">
+        	Theme by <a href="https://github.com/cofess" target="_blank"> cofess </a>base on <a href="https://github.com/cofess/hexo-theme-pure" target="_blank">pure</a>.
+        </div>
+    </div>
+</footer>
+  <script src="//cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js"></script>
+<script>
+window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')
+</script>
+<script src="/js/plugin.min.js"></script>
+<script src="/js/application.js"></script>
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+    <script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '文章',
+            PAGES: '页面',
+            CATEGORIES: '分类',
+            TAGS: '标签',
+            UNTITLED: '(未命名)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+<script src="/js/insight.js"></script>
+
+
+
+
+
+   
+    
+<script defer type="text/javascript">
+  (function(d, s) {
+    var j, e = d.getElementsByTagName(s)[0];
+
+    if (typeof LivereTower === 'function') { return; }
+
+    j = d.createElement(s);
+    j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+    j.async = true;
+
+    e.parentNode.insertBefore(j, e);
+  })(document, 'script');
+</script>
+
+
+
+
+
+
+
+
+</body>
+</html>

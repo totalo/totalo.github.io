@@ -34,7 +34,7 @@ jobs:
         uses: ad-m/github-push-action@master
         if: github.event_name == 'push' && github.ref == 'refs/heads/main'
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
+          github_token: ${{ secrets.ACTION_TOKEN }}
           repository: totalo/totalo.github.io
           branch: master
           force: true

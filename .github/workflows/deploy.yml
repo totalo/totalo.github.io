@@ -26,8 +26,8 @@ jobs:
       - name: Commit
         run: |
           cd ./dist
-          git config --local user.email github-actions[bot]@users.noreply.github.com
-          git config --local user.name github-actions[bot]
+          git config --local user.email totalo@apache.org
+          git config --local user.name totalo
           git add .
           git commit -m "update:`date`"
       - name: Deploy

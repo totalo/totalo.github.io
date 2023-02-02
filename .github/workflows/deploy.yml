@@ -36,5 +36,6 @@ jobs:
         with:
           github_token: ${{ secrets.ACTION_TOKEN }}
           repository: totalo/totalo.github.io
+          ssh: true
           branch: master
           force: true

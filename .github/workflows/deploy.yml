@@ -24,12 +24,18 @@ jobs:
       - name: Build Site
         run: yarn docs:build -d ./dist
       - name: Commit
+        env:
+          SSH_PRIVATE: ${{ secrets.SSH_PRIVATE }}
         run: |
           cd ./dist
           git config --local user.email totalo@apache.org
           git config --local user.name totalo
           git add .
           git commit -m "update:`date`"
+          mkdir -p ~/.ssh/
+          echo "$SSH_PRIVATE" > ~/.ssh/id_rsa
+          chmod 700 -R ~/.ssh
+          ssh-keyscan github.com >> ~/.ssh/known_hosts
       - name: Deploy
         uses: ad-m/github-push-action@master
         if: github.event_name == 'push' && github.ref == 'refs/heads/main'

@@ -23,27 +23,14 @@ jobs:
         run: yarn install
       - name: Build Site
         run: yarn docs:build -d ./dist
-      - name: Commit
-        env:
-          SSH_PRIVATE: ${{ secrets.SSH_PRIVATE }}
-        run: |
-          cd ./dist
-          git config --local user.email totalo@apache.org
-          git config --local user.name totalo
-          git add .
-          git commit -m "update:`date`"
-          mkdir -p ~/.ssh/
-          echo "$SSH_PRIVATE" > ~/.ssh/id_rsa
-          chmod 700 -R ~/.ssh
-          ssh-keyscan github.com >> ~/.ssh/known_hosts
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3
         if: github.event_name == 'push' && github.ref == 'refs/heads/main'
         with:
           personal_token: ${{ secrets.ACTION_TOKEN }}
           external_repository: totalo/totalo.github.io
-          ssh: true
-          branch: master
-          force: true
-          publish_dir: ./dist # 注意这里指的是要发布哪个文件夹的内容，而不是指发布到目的仓库的什么位置，因为hugo默认生成静态网页到public文件夹，所以这里发布public文件夹里的内容
-          publish_branch: master # 发布到哪个branch
+          publish_dir: ./dist
+          publish_branch: master
+          user_name: 'github-actions[bot]'
+          user_email: 'github-actions[bot]@users.noreply.github.com'
+          commit_message: ${{ github.event.head_commit.message }}

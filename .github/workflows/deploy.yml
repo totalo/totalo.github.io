@@ -24,11 +24,11 @@ jobs:
       - name: Build Site
         run: yarn docs:build -d ./dist
       - name: Commit
-          run: |
-            cd ./dist
-            git config --global user.email github-actions[bot]@users.noreply.github.com
-            git config --global user.name github-actions[bot]
-            git commit -am"update:`date`"
+        run: |
+          cd ./dist
+          git config --global user.email github-actions[bot]@users.noreply.github.com
+          git config --global user.name github-actions[bot]
+          git commit -am"update:`date`"
       - name: Deploy
         uses: ad-m/github-push-action@master
         if: github.event_name == 'push' && github.ref == 'refs/heads/main'

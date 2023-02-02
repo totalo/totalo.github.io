@@ -35,6 +35,6 @@ jobs:
         if: github.event_name == 'push' && github.ref == 'refs/heads/main'
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          repository: totalo.github.io
+          repository: totalo/totalo.github.io
           branch: master
           force: true

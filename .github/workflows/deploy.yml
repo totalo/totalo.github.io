@@ -23,15 +23,19 @@ jobs:
         run: yarn install
       - name: Build Site
         run: yarn docs:build -d ./dist
+      - name: Commit
+        run: |
+          cd ./dist
+          git config --local user.email totalo@apache.org
+          git config --local user.name totalo
+          git add .
+          git commit -m "update:`date`"
       - name: Deploy
-        uses: peaceiris/actions-gh-pages@v3
+        uses: ad-m/github-push-action@master
         if: github.event_name == 'push' && github.ref == 'refs/heads/main'
         with:
-          personal_token: ${{ secrets.ACTION_TOKEN }}
-          external_repository: totalo/totalo.github.io
-          publish_dir: ./dist
-          publish_branch: master
-          user_name: 'github-actions[bot]'
-          user_email: 'github-actions[bot]@users.noreply.github.com'
-          commit_message: ${{ github.event.head_commit.message }}
-          cname: totalo.top
+          github_token: ${{ secrets.ACTION_TOKEN }}
+          repository: totalo/totalo.github.io
+          branch: master
+          force: true
+          directory: ./dist

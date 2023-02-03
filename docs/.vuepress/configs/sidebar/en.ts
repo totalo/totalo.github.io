@@ -1,22 +1,11 @@
 import type { SidebarConfig } from '@vuepress/theme-default'
 
 export const sidebarEn: SidebarConfig = {
-    '/guide/': [
+    '/java/': [
         {
-            text: 'Guide',
+            text: 'Java知识体系',
             children: [
-                '/guide/README.md',
-                '/guide/getting-started.md',
-                '/guide/configuration.md',
-                '/guide/page.md',
-                '/guide/markdown.md',
-                '/guide/assets.md',
-                '/guide/i18n.md',
-                '/guide/deployment.md',
-                '/guide/theme.md',
-                '/guide/plugin.md',
-                '/guide/bundler.md',
-                '/guide/migration.md',
+                '/java/README.md',
             ],
         },
     ],

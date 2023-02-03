@@ -3,9 +3,10 @@ import type { SidebarConfig } from '@vuepress/theme-default'
 export const sidebarEn: SidebarConfig = {
     '/java/': [
         {
-            text: 'Java知识体系',
+            text: 'Java基础',
             children: [
-                '/java/README.md',
+                '/java/base.md',
+                '/java/base.md',
             ],
         },
     ],

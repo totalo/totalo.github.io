@@ -11,6 +11,17 @@ import {
 export default defineUserConfig({
     base: '/',
     
+    head: [
+        [
+            'script',
+            {
+                crossorigin: 'anonymous',
+                async: true,
+                src: "https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4545022751103525",
+            }
+        ]
+    ],
+    
     locales: {
         '/': {
             lang: 'en-US',

@@ -37,4 +37,12 @@ export const head: HeadConfig[] = [
     ],
     ['meta', { name: 'msapplication-TileColor', content: '#3eaf7c' }],
     ['meta', { name: 'theme-color', content: '#3eaf7c' }],
+    [
+        'script',
+        {
+            crossorigin: 'anonymous',
+            async: true,
+            src: "https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4545022751103525",
+        }
+    ]
 ]

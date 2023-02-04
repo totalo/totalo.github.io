@@ -11,14 +11,11 @@ export const navbarZh: NavbarConfig = [
         children: [
             {
                 text: '基础',
-                link: '/zh/java/reference/base.md',
                 children: [
                     '/zh/java/reference/object.md',
+                    '/zh/java/reference/collection.md',
+                    '/zh/java/reference/io.md',
                 ]
-            },
-            {
-                text: 'IO',
-                link: '/zh/java/reference/io.md',
             },
             {
                 text: '并发',
@@ -67,7 +64,7 @@ export const navbarZh: NavbarConfig = [
     {
         text: '中间件',
         children: [
-            
+            '/zh/middleware/reference/shardingsphere.md',
         ]
     }
 ]

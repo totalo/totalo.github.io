@@ -5,8 +5,7 @@ export const sidebarEn: SidebarConfig = {
         {
             text: 'Java基础',
             children: [
-                '/java/base.md',
-                '/java/base.md',
+                '/java/object.md',
             ],
         },
     ],

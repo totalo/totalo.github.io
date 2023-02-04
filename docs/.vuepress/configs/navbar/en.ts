@@ -10,7 +10,7 @@ export const navbarEn: NavbarConfig = [
         children: [
             {
                 text: 'Base',
-                link: '/java/reference/base.md',
+                link: '/java/reference/object.md',
                 children: [
                     '/java/reference/object.md',
                 ]

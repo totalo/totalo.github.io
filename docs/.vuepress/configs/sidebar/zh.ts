@@ -5,7 +5,8 @@ export const sidebarZh: SidebarConfig = {
         {
             text: 'Java基础',
             children: [
-                '/zh/java/reference/base.md',
+                '/zh/java/reference/object.md',
+                '/zh/java/reference/collection.md',
             ],
         },
     ],

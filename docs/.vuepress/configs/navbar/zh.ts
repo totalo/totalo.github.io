@@ -7,6 +7,14 @@ export const navbarZh: NavbarConfig = [
         link: '/zh/interview/java.md',
     },
     {
+        text: '踩的坑',
+        link: '/zh/problems/log4j-deadlock.md',
+    },
+    {
+        text: '各种最佳实践',
+        link: '/zh/best-practices.md'
+    },
+    {
         text: 'Java',
         children: [
             {

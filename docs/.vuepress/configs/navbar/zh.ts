@@ -18,23 +18,34 @@ export const navbarZh: NavbarConfig = [
         text: 'Java',
         children: [
             {
-                text: '基础',
+                text: 'Java面向对象体系和基础',
                 children: [
-                    '/zh/java/reference/object.md',
-                    '/zh/java/reference/collection.md',
-                    '/zh/java/reference/io.md',
+                    '/zh/java/base/object.md',
+                    '/zh/java/base/base.md',
                 ]
             },
             {
-                text: '并发',
+                text: 'Java进阶 - 集合框架',
                 children: [
-                    
+                    '/zh/java/collection/collection.md',
                 ]
             },
             {
-                text: 'JVM',
+                text: 'Java进阶 - IO框架',
                 children: [
-                    
+                    '/zh/java/io/io.md',
+                ]
+            },
+            {
+                text: 'Java进阶 - 多线程与并发',
+                children: [
+                    '/zh/java/concurrency/concurrency.md',
+                ]
+            },
+            {
+                text: 'Java进阶 - JVM与程序调优',
+                children: [
+                    '/zh/java/jvm/jvm.md',
                 ]
             }
         ]

@@ -5,8 +5,55 @@ export const sidebarZh: SidebarConfig = {
         {
             text: 'Java基础',
             children: [
-                '/zh/java/reference/object.md',
-                '/zh/java/reference/collection.md',
+                {
+                    text: '面向对象',
+                    link: '/zh/java/base/object.md',
+                },
+                {
+                    text: '语法基础',
+                    link: '/zh/java/base/base.md',
+                },
+                {
+                    text: '异常机制',
+                    link: '/zh/java/base/exception.md',
+                },
+                {
+                    text: '反射机制',
+                    link: '/zh/java/base/reflection.md',
+                },
+                {
+                    text: '注解机制',
+                    link: '/zh/java/base/annotation.md',
+                },
+                {
+                    text: '泛型机制',
+                    link: '/zh/java/base/generics.md',
+                },
+                {
+                    text: 'SPI机制',
+                    link: '/zh/java/base/spi.md',
+                },
+            ],
+        },
+        {
+            text: '集合框架',
+            children: [
+            ],
+        },
+        {
+            text: 'IO框架',
+            children: [
+            ],
+        },
+        {
+            text: '多线程与并发',
+            children: [
+                
+            ],
+        },
+        {
+            text: 'JVM与程序调优',
+            children: [
             ],
         },
     ],

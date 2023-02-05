@@ -23,15 +23,13 @@ jobs:
         run: yarn install
       - name: Build Site
         run: yarn docs:build -d ./dist
-      - name: Deploy
-        uses: peaceiris/actions-gh-pages@v3
-        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+      - name: Push changes
+        uses: ad-m/github-push-action@master
         with:
-          personal_token: ${{ secrets.ACTION_TOKEN }}
-          external_repository: totalo/totalo.github.io
-          publish_dir: ./dist
-          publish_branch: master
-          user_name: 'github-actions[bot]'
-          user_email: 'github-actions[bot]@users.noreply.github.com'
-          commit_message: ${{ github.event.head_commit.message }}
-          cname: totalo.top
+          github_token: totalo/totalo.github.io
+          branch: master
+          repository: totalo/totalo.github.io
+          force: true
+          directory: ./dist
+        env:
+          GITHUB_ACTOR: github-actions[bot]

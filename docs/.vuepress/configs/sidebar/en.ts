@@ -9,24 +9,30 @@ export const sidebarEn: SidebarConfig = {
             ],
         },
     ],
-    '/advanced/': [
+    '/interview/': [
         {
-            text: 'Advanced',
+            text: '技术面试体系',
             children: [
-                '/advanced/architecture.md',
-                '/advanced/plugin.md',
-                '/advanced/theme.md',
-            ],
-        },
-        {
-            text: 'Cookbook',
-            children: [
-                '/advanced/cookbook/README.md',
-                '/advanced/cookbook/usage-of-client-config.md',
-                '/advanced/cookbook/adding-extra-pages.md',
-                '/advanced/cookbook/making-a-theme-extendable.md',
-                '/advanced/cookbook/passing-data-to-client-code.md',
-                '/advanced/cookbook/markdown-and-vue-sfc.md',
+                {
+                    text: '计算机基础',
+                    link: '/zh/interview/others.md',
+                },
+                {
+                    text: 'Java面试',
+                    link: '/zh/interview/java.md',
+                },
+                {
+                    text: '数据库',
+                    link: '/zh/interview/database.md',
+                },
+                {
+                    text: '系统设计',
+                    link: '/zh/interview/system-design.md',
+                },
+                {
+                    text: '开发框架和中间件',
+                    link: '/zh/interview/middleware.md',
+                },
             ],
         },
     ],

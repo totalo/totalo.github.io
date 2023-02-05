@@ -10,24 +10,46 @@ export const sidebarZh: SidebarConfig = {
             ],
         },
     ],
-    '/zh/advanced/': [
+    '/zh/interview/': [
         {
-            text: '深入',
+            text: '技术面试体系',
             children: [
-                '/zh/advanced/architecture.md',
-                '/zh/advanced/plugin.md',
-                '/zh/advanced/theme.md',
-            ],
-        },
-        {
-            text: 'Cookbook',
-            children: [
-                '/zh/advanced/cookbook/README.md',
-                '/zh/advanced/cookbook/usage-of-client-config.md',
-                '/zh/advanced/cookbook/adding-extra-pages.md',
-                '/zh/advanced/cookbook/making-a-theme-extendable.md',
-                '/zh/advanced/cookbook/passing-data-to-client-code.md',
-                '/zh/advanced/cookbook/markdown-and-vue-sfc.md',
+                {
+                    text: 'Java面试',
+                    link: '/zh/interview/java.md',
+                },
+                {
+                    text: '系统设计',
+                    link: '/zh/interview/system-design.md',
+                },
+                {
+                    text: '数据库',
+                    link: '/zh/interview/database.md',
+                },
+                {
+                    text: '设计模式',
+                    link: '/zh/interview/design-mode.md',
+                },
+                {
+                    text: '计算机网络',
+                    link: '/zh/interview/system-network.md',
+                },
+                {
+                    text: '操作系统',
+                    link: '/zh/interview/system.md',
+                },
+                {
+                    text: '数据结构与算法',
+                    link: '/zh/interview/algorithms.md',
+                },
+                {
+                    text: '开发框架和中间件',
+                    link: '/zh/interview/middleware.md',
+                },
+                {
+                    text: '其他',
+                    link: '/zh/interview/others.md',
+                },
             ],
         },
     ],

@@ -4,7 +4,7 @@ import { version } from '../meta.js'
 export const navbarZh: NavbarConfig = [
     {
         text: '😈面试',
-        link: '/zh/interview/',
+        link: '/zh/interview/java.md',
     },
     {
         text: 'Java',

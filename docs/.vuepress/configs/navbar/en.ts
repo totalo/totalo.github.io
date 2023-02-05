@@ -3,7 +3,7 @@ import type { NavbarConfig } from '@vuepress/theme-default'
 export const navbarEn: NavbarConfig = [
     {
         text: '😈interview',
-        link: '/interview/',
+        link: '/interview/others.md',
     },
     {
         text: 'Java',

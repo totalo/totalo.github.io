@@ -32,4 +32,4 @@ jobs:
           force: true
           directory: ./dist
         env:
-          GITHUB_ACTOR: github-actions[bot]
+          GITHUB_ACTOR: totalo

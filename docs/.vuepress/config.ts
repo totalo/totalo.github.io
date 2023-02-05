@@ -14,12 +14,12 @@ export default defineUserConfig({
     head: head,
     
     locales: {
-        '/': {
+        '/en/': {
             lang: 'en-US',
             title: 'Hello World',
             description: '摆摊写代码totalo得小破站',
         },
-        '/zh/': {
+        '/': {
             lang: 'zh-CN',
             title: 'Hello World',
             description: '摆摊写代码totalo得小破站',
@@ -31,7 +31,7 @@ export default defineUserConfig({
         docsDir: 'docs',
         
         locales: {
-            '/': {
+            '/en/': {
                 // navbar
                 navbar: navbarEn,
                 // sidebar
@@ -39,7 +39,7 @@ export default defineUserConfig({
                 // page meta
                 editLinkText: 'Edit this page on GitHub',
             },
-            '/zh/': {
+            '/': {
                 // navbar
                 navbar: navbarZh,
                 selectLanguageName: '简体中文',

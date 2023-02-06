@@ -11,7 +11,7 @@ export const sidebarZh: SidebarConfig = {
                 },
                 {
                     text: '语法基础',
-                    link: '/zh/java/base/base.md',
+                    link: '/zh/java/base/shardingsphere.md',
                 },
                 {
                     text: '异常机制',
@@ -105,6 +105,34 @@ export const sidebarZh: SidebarConfig = {
             text: '踩坑备忘录',
             children: [
                 '/zh/problems/log4j-deadlock.md',
+            ],
+        },
+    ],
+    '/zh/middleware/': [
+        {
+            text: '中间件',
+            children: [
+                {
+                    text: 'Shardingsphere',
+                    children:[
+                        {
+                            text: '关于Shardingsphere',
+                            link: '/zh/middleware/shardingsphere/shardingsphere.md',
+                        },
+                    ]
+                },
+                {
+                    text: 'RocketMQ',
+                    children:[
+                        '/zh/middleware/rocketmq/rocketmq.md',
+                    ]
+                },
+                {
+                    text: 'Thrift',
+                    children:[
+                        '/zh/middleware/thrift/thrift.md',
+                    ]
+                },
             ],
         },
     ],

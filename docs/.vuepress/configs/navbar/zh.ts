@@ -83,7 +83,20 @@ export const navbarZh: NavbarConfig = [
     {
         text: '中间件',
         children: [
-            '/zh/middleware/reference/shardingsphere.md',
+            {
+                text: 'Shardingsphere',
+                children: [
+                    '/zh/middleware/shardingsphere/shardingsphere.md',
+                ]
+            },
+            {
+                text: 'RocketMQ',
+                link: '/zh/middleware/rocketmq/rocketmq.md',
+            },
+            {
+                text: 'Thrift',
+                link: '/zh/middleware/thrift/thrift.md',
+            },
         ]
     }
 ]

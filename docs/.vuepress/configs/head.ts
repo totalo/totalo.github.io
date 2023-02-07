@@ -44,5 +44,18 @@ export const head: HeadConfig[] = [
             async: true,
             src: "https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4545022751103525",
         }
+    ],
+    [
+        'script',
+        {},
+        `
+        var _hmt = _hmt || [];
+        (function() {
+        var hm = document.createElement("script");
+        hm.src = "https://hm.baidu.com/hm.js?e58acf9806e55ac523ba77b5a273de3b";
+        var s = document.getElementsByTagName("script")[0]; 
+        s.parentNode.insertBefore(hm, s);
+        })();
+        `
     ]
 ]

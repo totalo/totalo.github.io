@@ -37,6 +37,7 @@ export const head: HeadConfig[] = [
     ],
     ['meta', { name: 'msapplication-TileColor', content: '#3eaf7c' }],
     ['meta', { name: 'theme-color', content: '#3eaf7c' }],
+    ['meta', {name: 'baidu_union_verify', content: 'a00b76ff410da1d7f3767aef6ec7297c'}],
     [
         'script',
         {

@@ -1,4 +1,5 @@
 import {defaultTheme, defineUserConfig} from 'vuepress'
+import sitemap from 'vuepress-plugin-sitemap'
 
 import {
     head,

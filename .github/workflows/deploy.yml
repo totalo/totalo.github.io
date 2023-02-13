@@ -30,3 +30,4 @@ jobs:
           github_token: ${{ secrets.ACTION_TOKEN }}
           branch: master
           repository: totalo/totalo.github.io
+          force: true

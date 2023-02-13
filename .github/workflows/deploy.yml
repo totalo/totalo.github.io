@@ -31,3 +31,4 @@ jobs:
           branch: master
           repository: totalo/totalo.github.io
           force: true
+          directory: ./dist

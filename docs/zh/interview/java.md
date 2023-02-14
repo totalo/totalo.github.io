@@ -123,6 +123,13 @@ c、多态
 
 一个方法名，Java允许使用 finalize() 方法，在垃圾收集器将对象从内存中清除出去之前做必要的清理工作，这个方法是由垃圾收集器在确定这个对象没有被引用。
 
+#### <u>**String、StringBuffer、StringBuilder区别**</u>
+
+- String 是 final class，所有属性也是 final  的，是不可变的，类似拼接、裁剪字符串都会产生新的 String  对象。由于字符串操作的普遍性，所以相关的操作的效率往往对应用性能有明显影响。
+
+- StringBuffer 是一个线程安全的可修改字符序列，保证了线程安全，也随之而来带来了额外的性能开销，所以除非有线程安全的需要。
+- StringBuilder 本质上和 StringBuffer 无主要区别，但是去掉了线程安全的部分，有效减小了开销，是绝大部分情况下进行字符串拼接的首选。（JDK1.5添加）
+
 #### <u>接口和抽象类的区别</u>
 
 从设计层面，抽象是对类的抽象，是一种模版设计，接口是行为的抽象，更像是一种行为规范。
@@ -147,6 +154,75 @@ c、多态
 8. 子类构造函数
 
 ### 1.2 反射
+
+#### <u>什么是反射？</u>
+
+反射就是Reflection，Java的反射指程序在运行期间可以拿到一个对象的所有信息。
+
+#### <u>主要功能</u>
+
+- 在运行时构造一个类对象
+- 判断一个类所具有的成员变量和方法
+- 调用对象的方法
+- 生成动态代理
+
+应用：
+
+Spring 框架的IoC基于反射创建对象和依赖属性
+
+Spring MVC的请求调用对应的方法
+
+JDBC的`Class.forName`方法
+
+#### <u>Class.forName和ClassLoader的区别</u>
+
+Class.forName 除了将 class 文件加载至 JVM 以外，还会将类进行解释，执行类的 static 块；
+
+ClassLoader只会将class文件加载至 JVM ，只有在 newInstance 才会执行 static 块。
+
+#### <u>动态代理和静态代理</u>
+
+- **动态代理和静态代理的区别**
+
+静态：由程序员创建代理累或者由特定的工具生成源代码，对其进行编译。此方式每个代理类只能对应一个被代理的对象。
+
+动态：在程序运行时运用反射机制动态创建而成。此方式是一个通用的。（在程序运行期间，创建目标的代理对象，并对目标对象中的方法进行功能性增加的一种技术。）
+
+- **动态代理的原理**
+
+主要分为两种：JDK动态代理和GCLIB动态代理。
+
+JDK动态代理：只能对实现了**接口**的类生成代理，而不能针对类
+
+CGLIB动态代理：对类实现代理，主要是对制定的类生成一个子类，覆盖其中的方法。因为是**继承**，所以该类或方法不能声明为final 以及private.
+
+spring AOP的动态代理分为spring framwork为jdk动态代理而spring boot 2.x以上为cglib动态代理，修改为jdk动态代理，spring-aop-proxy-target-class=false。
+
+- **性能对比**
+
+  - jdk6 下，在运行次数较少的情况下，jdk动态代理与 cglib 差距不明显，甚至更快一些；而当调用次数增加之后， cglib 表现稍微更快一些
+
+  - jdk7 下，情况发生了逆转！在运行次数较少（1,000,000）的情况下，jdk动态代理比 cglib 快了差不多30%；而当调用次数增加之后(50,000,000)， 动态代理比 cglib 快了接近1倍
+
+  - jdk8 表现和 jdk7 基本一致
+
+#### <u>getName、getCanonicalName与getSimpleName的区别?</u>
+
+- getSimpleName：只获取类名
+- getName：类的全限定名，jvm中Class的表示，可以用于动态加载Class对象，例如Class.forName。
+- getCanonicalName：返回更容易理解的表示，主要用于输出（toString）或log打印，大多数情况下和getName一样，但是在内部类、数组等类型的表示形式就不同了。
+
+```java
+public static void main(String[] args) {
+  System.out.println(Inner.class.getSimpleName()); // Inner
+  System.out.println(Inner.class.getName()); // top.totalo.Test$Inner  若非内部类，则两者展现的效果相同
+  System.out.println(Inner.class.getCanonicalName()); // // top.totalo.Test.Inner 
+}
+    
+class Inner {
+        
+}
+```
 
 
 

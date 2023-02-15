@@ -1,0 +1,1 @@
+import{_ as t,p as o,q as a,R as e,t as l}from"./framework-204010b2.js";const c={},n=e("h1",{id:"hello-totalo",tabindex:"-1"},[e("a",{class:"header-anchor",href:"#hello-totalo","aria-hidden":"true"},"#"),l(" Hello totalo")],-1),r=[n];function s(_,d){return o(),a("div",null,r)}const h=t(c,[["render",s],["__file","index.html.vue"]]);export{h as default};

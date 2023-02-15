@@ -1,3 +1,0 @@
-# Shardingsphere
-
-[[TOC]]

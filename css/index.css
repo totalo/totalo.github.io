@@ -1,3 +1,11 @@
 .page .theme-default-content:not(.custom) {
     max-width: none;
 }
+
+.sidebar-item:not(.sidebar-heading).active + .sidebar-item-children {
+    display: block;
+}
+
+.sidebar-item:not(.sidebar-heading) + .sidebar-item-children {
+    display: none;
+}

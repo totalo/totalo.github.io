@@ -1,0 +1,1 @@
+const t=JSON.parse('{"key":"v-2661da02","path":"/zh/middleware/rocketmq/rocketmq.html","title":"rocketmq","lang":"zh-CN","frontmatter":{},"headers":[],"git":{"updatedTime":1681293029000,"contributors":[{"name":"totalo","email":"totalo@apache.org","commits":1}]},"filePathRelative":"zh/middleware/rocketmq/rocketmq.md"}');export{t as data};

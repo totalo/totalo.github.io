@@ -1,1 +1,0 @@
-const a=JSON.parse('{"key":"v-291da84f","path":"/zh/java/base/base.html","title":"语法基础","lang":"zh-CN","frontmatter":{},"headers":[],"git":{"updatedTime":1681452066000,"contributors":[{"name":"totalo","email":"totalo@apache.org","commits":1}]},"filePathRelative":"zh/java/base/base.md"}');export{a as data};

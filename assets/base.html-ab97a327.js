@@ -1,0 +1,1 @@
+const a=JSON.parse('{"key":"v-5f47ef70","path":"/java/reference/base.html","title":"Java基础","lang":"zh-CN","frontmatter":{},"headers":[],"git":{"updatedTime":1688535920000,"contributors":[{"name":"totalo","email":"totalo@totalos-MacBook-Pro.local","commits":1}]},"filePathRelative":"java/reference/base.md"}');export{a as data};

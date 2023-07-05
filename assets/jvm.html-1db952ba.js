@@ -1,0 +1,1 @@
+const t=JSON.parse('{"key":"v-37de792b","path":"/zh/java/jvm/jvm.html","title":"JVM","lang":"zh-CN","frontmatter":{},"headers":[],"git":{"updatedTime":1688536763000,"contributors":[{"name":"totalo","email":"totalo@totalos-MacBook-Pro.local","commits":1}]},"filePathRelative":"zh/java/jvm/jvm.md"}');export{t as data};

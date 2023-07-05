@@ -1,1 +1,0 @@
-import{_ as t,p as c,q as o,R as e,t as a}from"./framework-5866ffd3.js";const n={},r=e("h1",{id:"集合",tabindex:"-1"},[e("a",{class:"header-anchor",href:"#集合","aria-hidden":"true"},"#"),a(" 集合")],-1),s=[r];function _(l,d){return c(),o("div",null,s)}const h=t(n,[["render",_],["__file","collection.html.vue"]]);export{h as default};

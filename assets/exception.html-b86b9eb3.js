@@ -1,1 +1,0 @@
-import{_ as t,p as a,q as c,R as e,t as o}from"./framework-c4f3d865.js";const n={},r=e("h1",{id:"异常体系",tabindex:"-1"},[e("a",{class:"header-anchor",href:"#异常体系","aria-hidden":"true"},"#"),o(" 异常体系")],-1),s=[r];function _(d,i){return a(),c("div",null,s)}const l=t(n,[["render",_],["__file","exception.html.vue"]]);export{l as default};

@@ -1,1 +1,0 @@
-import{_ as t,p as a,q as c,R as e,t as r}from"./framework-c4f3d865.js";const s={},o=e("h1",{id:"jvm",tabindex:"-1"},[e("a",{class:"header-anchor",href:"#jvm","aria-hidden":"true"},"#"),r(" JVM")],-1),n=[o];function _(d,i){return a(),c("div",null,n)}const l=t(s,[["render",_],["__file","jvm.html.vue"]]);export{l as default};

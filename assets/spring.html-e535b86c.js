@@ -1,0 +1,1 @@
+const t=JSON.parse('{"key":"v-6bebe5dc","path":"/zh/spring/spring.html","title":"Spring 源码解析","lang":"zh-CN","frontmatter":{},"headers":[{"level":2,"title":"IoC容器","slug":"ioc容器","link":"#ioc容器","children":[]}],"git":{"updatedTime":1725108052000,"contributors":[{"name":"totalo","email":"totalo@qq.com","commits":1}]},"filePathRelative":"zh/spring/spring.md"}');export{t as data};

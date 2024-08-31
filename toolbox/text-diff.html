@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>文本比较工具</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        textarea {
+            width: 100%;
+            height: 150px;
+            margin-bottom: 10px;
+        }
+        #output {
+            white-space: pre-wrap;
+            margin-top: 20px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            background-color: #f9f9f9;
+        }
+        .insert {
+            background-color: #a8f0c6;
+        }
+        .delete {
+            background-color: #f7c6c7;
+        }
+    </style>
+</head>
+<body>
+<h1>文本比较工具</h1>
+<textarea id="text1" placeholder="在这里输入第一个文本"></textarea>
+<textarea id="text2" placeholder="在这里输入第二个文本"></textarea>
+<button onclick="compareText()">比较</button>
+
+<div id="output"></div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/diff_match_patch/20121119/diff_match_patch.js"></script>
+<script>
+    function compareText() {
+        const text1 = document.getElementById('text1').value;
+        const text2 = document.getElementById('text2').value;
+
+        const dmp = new diff_match_patch();
+        const diffs = dmp.diff_main(text1, text2);
+        dmp.diff_cleanupSemantic(diffs);
+
+        const outputDiv = document.getElementById('output');
+        outputDiv.innerHTML = '';
+
+        diffs.forEach(part => {
+            const span = document.createElement('span');
+            if (part[0] === 1) {
+                span.classList.add('insert');
+            } else if (part[0] === -1) {
+                span.classList.add('delete');
+            }
+            span.textContent = part[1];
+            outputDiv.appendChild(span);
+        });
+    }
+</script>
+</body>
+</html>
+

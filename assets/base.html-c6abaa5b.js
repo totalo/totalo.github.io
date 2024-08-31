@@ -1,0 +1,1 @@
+import{_ as a,p as t,q as s,R as e,t as c}from"./framework-ff09ffed.js";const r={},o=e("h1",{id:"java基础",tabindex:"-1"},[e("a",{class:"header-anchor",href:"#java基础","aria-hidden":"true"},"#"),c(" Java基础")],-1),n=[o];function _(d,i){return t(),s("div",null,n)}const l=a(r,[["render",_],["__file","base.html.vue"]]);export{l as default};

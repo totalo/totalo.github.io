@@ -1,0 +1,1 @@
+const t=JSON.parse('{"key":"v-14005604","path":"/interview/system-design.html","title":"系统设计","lang":"zh-CN","frontmatter":{},"headers":[],"git":{"updatedTime":1725107858000,"contributors":[{"name":"totalo","email":"totalo@qq.com","commits":1}]},"filePathRelative":"interview/system-design.md"}');export{t as data};

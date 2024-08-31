@@ -1,1 +1,0 @@
-import{_ as t,p as a,q as c,R as e,t as r}from"./framework-d81ad7e5.js";const s={},n=e("h1",{id:"注解",tabindex:"-1"},[e("a",{class:"header-anchor",href:"#注解","aria-hidden":"true"},"#"),r(" 注解")],-1),o=[n];function _(d,i){return a(),c("div",null,o)}const l=t(s,[["render",_],["__file","generics.html.vue"]]);export{l as default};

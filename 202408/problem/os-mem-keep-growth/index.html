@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4545022751103525"
+     crossorigin="anonymous"></script>
+    <title>晴天的博客</title>
+    
+<link rel="stylesheet" href="/css/style.css">
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+<body>
+    <!-- 移动端顶部导航 -->
+    <div class="mobile-nav">
+        <div class="mobile-nav-header">
+            <h1>晴天的博客</h1>
+            <button class="nav-toggle">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+        </div>
+        <div class="mobile-nav-menu">
+            <nav class="main-nav">
+                <ul>
+                    <li class="nav-item"><a href="/">最新文章</a></li>
+                    <li class="nav-item"><a href="/archives">文章存档</a></li>
+                    <!-- <li class="nav-item"><a href="/about">关于我</a></li> -->
+                </ul>
+            </nav>
+        </div>
+    </div>
+
+    <div class="container">
+        <!-- PC端侧边栏 -->
+        <div class="sidebar">
+            <div class="logo">
+                <h1>晴天的博客</h1>
+            </div>
+            <nav class="main-nav">
+                <ul>
+                    <li class="nav-item"><a href="/">最新文章</a></li>
+                    <li class="nav-item"><a href="/archives">文章存档</a></li>
+                    <!-- <li class="nav-item"><a href="/about">关于我</a></li> -->
+                </ul>
+            </nav>
+        </div>
+        <div class="main-content">
+            <article class="post">
+    <header class="post-header">
+        <h1 class="post-title">升级 nacos 后，系统内存占用一直在增长，但是进程占用内存不高</h1>
+        <div class="post-meta">
+            <div class="meta-item">
+                <i class="far fa-calendar-alt"></i>
+                <span>2024年08月31日</span>
+            </div>
+            
+            
+                <div class="meta-item">
+                    <i class="far fa-user"></i>
+                    <span>totalo</span>
+                </div>
+            
+            
+            <div class="meta-item">
+                <i class="far fa-file-word"></i>
+                <span>854 字</span>
+            </div>
+            
+            <div class="meta-item">
+                <i class="far fa-clock"></i>
+                <span>预计阅读 3 分钟</span>
+            </div>
+
+            
+            
+            
+                <div class="meta-item">
+                    <i class="fas fa-tags"></i>
+                    
+                        <span class="tag">线上问题</span>
+                    
+                        <span class="tag">spring</span>
+                    
+                        <span class="tag">nacos</span>
+                    
+                        <span class="tag">memory</span>
+                    
+                </div>
+            
+        </div>
+    </header>
+    <div class="post-content">
+        <p>本文主要记录了一次 spring 升级版本后导致机器内存飙升，但是进程占用内存一直不高的问题。</p>
+<span id="more"></span>
+
+<h3 id="0x00-背景描述"><a href="#0x00-背景描述" class="headerlink" title="0x00 背景描述"></a>0x00 背景描述</h3><p>项目是 spring-cloud-gateway 的项目，使用的技术栈是 spring cloud + nacos ，版本如下：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">spring.boot.version</span>&gt;</span>2.3.2.RELEASE<span class="tag">&lt;/<span class="name">spring.boot.version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">spring.cloud.version</span>&gt;</span>Hoxton.SR9<span class="tag">&lt;/<span class="name">spring.cloud.version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">spring.cloud.alibaba.version</span>&gt;</span>2.2.6.RELEASE<span class="tag">&lt;/<span class="name">spring.cloud.alibaba.version</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>公司要求将 nacos 版本从 1.x 升级到 2.x，由此根据官方的参考文档以及公司推荐的版本，升级到如下版本：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">spring.boot.version</span>&gt;</span>2.3.12.RELEASE<span class="tag">&lt;/<span class="name">spring.boot.version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">spring.cloud.version</span>&gt;</span>Hoxton.SR12<span class="tag">&lt;/<span class="name">spring.cloud.version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">spring.cloud.alibaba.version</span>&gt;</span>2.2.9.RELEASE<span class="tag">&lt;/<span class="name">spring.cloud.alibaba.version</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>对应的 nacos-client 升级到 2.1.0，spring 版本从 5.1.18 升级到了 5.2.15</p>
+<p>官方参考文档：<a target="_blank" rel="noopener" href="https://github.com/alibaba/spring-cloud-alibaba/wiki/%E7%89%88%E6%9C%AC%E8%AF%B4%E6%98%8E">https://github.com/alibaba/spring-cloud-alibaba/wiki/%E7%89%88%E6%9C%AC%E8%AF%B4%E6%98%8E</a></p>
+<p>升级后，开始进行网关灰度的时候发现，系统的内存占用和java 的进程占用的内存对应不上，并且系统占用内存一直在增长，由于使用的是容器部署，容器内部没有其余的占用内存的进程。</p>
+<p>理论上而言，系统内存的占用应该近似和进程的内存占用，但是现象不一样，线上的现象是 ** java 进程占用的比系统占用的少，系统内存占用比较高，并且还一直在增长**。见下图：</p>
+<p><img src="/images/mem-keep-growth-01.png" alt="image"></p>
+<h3 id="0x01-问题分析"><a href="#0x01-问题分析" class="headerlink" title="0x01 问题分析"></a>0x01 问题分析</h3><p>与正常的版本相比， 比较核心的就是升级了 spring cloud 的版本以及 nacos-client，其余的没有什么变化。并且网关只使用了 discovery 功能用于发现下游的服务实例，其余的应该没有什么区别。</p>
+<p>由于是内存的占用一直在增长，通过free -h 查看发现，没有特别的异常，只是已使用一直在增长，其余没有任何的异常，vmstat 查看也只是memory 的 free 一直在减少。查看&#x2F;proc&#x2F;meminfo 也没有什么特别的异常。</p>
+<p><img src="/images/mem-keep-growth-2.png" alt="image"></p>
+<p>经过 n 种方式查询，没有什么特别的异常，后续通过 slabtop 对比正常的版本和异常的版本发现，dentry 项两个机器差了一个数量级。</p>
+<p>正常版本：<br><img src="/images/mem-keep-growth-3.png" alt="正常版本"></p>
+<p>异常版本：<br><img src="/images/mem-keep-growth-4.png" alt="异常版本版本"></p>
+<p>通过图上可以明显看出来，异常的 dentry 占用比正常的高一个数量级。</p>
+<p>但是也不知道后续怎么排查了，找到了系统容器组的同事。经过他的排查定位发现&#x2F;tmp 目录创建了上百万个文件。最终定位为 spring 的一个 bug 导致的。详情见：<a target="_blank" rel="noopener" href="https://github.com/spring-projects/spring-framework/issues/27092">https://github.com/spring-projects/spring-framework/issues/27092</a></p>
+<p><img src="/images/mem-keep-growth-5.png" alt="异常版本版本"></p>
+<h3 id="0x02-问题解决"><a href="#0x02-问题解决" class="headerlink" title="0x02 问题解决"></a>0x02 问题解决</h3><p>经过查看 pr，发现为默认创建文件夹导致内存占用高，影响的 jar 包是 spring-web，查看 github 发现，5.2.16 版本修复了这个问题，果断进行升级后，系统正常了。</p>
+<p>后续请教了一下内核组的同事，他说是通过drgn工具定位的，其余的办法好像查不到，工具具体放参考资料里面。</p>
+<h3 id="0x03-参考资料"><a href="#0x03-参考资料" class="headerlink" title="0x03 参考资料"></a>0x03 参考资料</h3><p>1、spring bug issue ： <a target="_blank" rel="noopener" href="https://github.com/spring-projects/spring-framewor">https://github.com/spring-projects/spring-framewor</a></p>
+<p>2、slab 内存占用高排查：<a target="_blank" rel="noopener" href="http://aliyun123.cn/news/924.html">http://aliyun123.cn/news/924.html</a></p>
+<p>3、排查工具：<a target="_blank" rel="noopener" href="https://github.com/osandov/drgn/pull/306#issuecomment-1619742195">https://github.com/osandov/drgn/pull/306#issuecomment-1619742195</a></p>
+
+    </div>
+
+    <footer class="post-footer">
+        
+            <div class="meta-item">
+                <i class="fas fa-tags"></i>
+                
+                    <span class="tag">线上问题</span>
+                
+                    <span class="tag">spring</span>
+                
+                    <span class="tag">nacos</span>
+                
+                    <span class="tag">memory</span>
+                
+            </div>
+        
+    </footer>
+</article>
+        </div>
+    </div>
+
+    <script>
+        const navToggle = document.querySelector('.nav-toggle');
+        const mobileNav = document.querySelector('.mobile-nav-menu');
+        
+        navToggle.addEventListener('click', function() {
+            mobileNav.classList.toggle('active');
+            this.classList.toggle('active');
+        });
+    </script>
+</body>
+</html>

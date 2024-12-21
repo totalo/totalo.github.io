@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4545022751103525"
+     crossorigin="anonymous"></script>
+    <title>晴天的博客</title>
+    
+<link rel="stylesheet" href="/css/style.css">
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+<body>
+    <!-- 移动端顶部导航 -->
+    <div class="mobile-nav">
+        <div class="mobile-nav-header">
+            <h1>晴天的博客</h1>
+            <button class="nav-toggle">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+        </div>
+        <div class="mobile-nav-menu">
+            <nav class="main-nav">
+                <ul>
+                    <li class="nav-item"><a href="/">最新文章</a></li>
+                    <li class="nav-item"><a href="/archives">文章存档</a></li>
+                    <!-- <li class="nav-item"><a href="/about">关于我</a></li> -->
+                </ul>
+            </nav>
+        </div>
+    </div>
+
+    <div class="container">
+        <!-- PC端侧边栏 -->
+        <div class="sidebar">
+            <div class="logo">
+                <h1>晴天的博客</h1>
+            </div>
+            <nav class="main-nav">
+                <ul>
+                    <li class="nav-item"><a href="/">最新文章</a></li>
+                    <li class="nav-item"><a href="/archives">文章存档</a></li>
+                    <!-- <li class="nav-item"><a href="/about">关于我</a></li> -->
+                </ul>
+            </nav>
+        </div>
+        <div class="main-content">
+            <article class="post">
+    <header class="post-header">
+        <h1 class="post-title">日志量突增导致线上出现大面积的超时，机器cpu负载过高</h1>
+        <div class="post-meta">
+            <div class="meta-item">
+                <i class="far fa-calendar-alt"></i>
+                <span>2024年08月31日</span>
+            </div>
+            
+            
+                <div class="meta-item">
+                    <i class="far fa-user"></i>
+                    <span>totalo</span>
+                </div>
+            
+            
+            <div class="meta-item">
+                <i class="far fa-file-word"></i>
+                <span>293 字</span>
+            </div>
+            
+            <div class="meta-item">
+                <i class="far fa-clock"></i>
+                <span>预计阅读 1 分钟</span>
+            </div>
+
+            
+            
+            
+                <div class="meta-item">
+                    <i class="fas fa-tags"></i>
+                    
+                        <span class="tag">线上问题</span>
+                    
+                        <span class="tag">log4j</span>
+                    
+                        <span class="tag">cpu</span>
+                    
+                </div>
+            
+        </div>
+    </header>
+    <div class="post-content">
+        <p>本文主要记录了一次使用 log4j日志系统，在增加日志的输出量后，导致机器出现超时，机器cpu负载过高的问题定位与解决方法。</p>
+<span id="more"></span>
+
+<p>[[TOC]]</p>
+<h3 id="现象描述"><a href="#现象描述" class="headerlink" title="现象描述"></a>现象描述</h3><p>一台机器不同端口，两个相同的进程，出现机器负载过高，dump发现log4j callApender阻塞</p>
+<p><img src="/images/log4j-deadlock_1.png" alt="image"></p>
+<h3 id="问题分析"><a href="#问题分析" class="headerlink" title="问题分析"></a>问题分析</h3><p>线上未进行相关的变更，与之前相比，仅仅是日志量增加了，根据这个点，进一步排查<br>发现log4j的appender是一个队列，队列的大小默认是512，当队列满了之后，会阻塞，直到队列有空闲位置</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">callAppenders</span><span class="params">(LoggingEvent event)</span> &#123;</span><br><span class="line">  <span class="type">int</span> <span class="variable">writes</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">  <span class="keyword">for</span>(<span class="type">Category</span> <span class="variable">c</span> <span class="operator">=</span> <span class="built_in">this</span>; c != <span class="literal">null</span>; c=c.parent) &#123;</span><br><span class="line">    <span class="comment">// Protected against simultaneous call to addAppender, removeAppender,...</span></span><br><span class="line">    <span class="keyword">synchronized</span>(c) &#123;</span><br><span class="line">      <span class="keyword">if</span>(c.aai != <span class="literal">null</span>) &#123;</span><br><span class="line">        writes += c.aai.appendLoopOnAppenders(event);</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="keyword">if</span>(!c.additive) &#123;</span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span>(writes == <span class="number">0</span>) &#123;</span><br><span class="line">    repository.emitNoAppenderWarning(<span class="built_in">this</span>);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="解决方案：升级至log4j2解决了相关的问题"><a href="#解决方案：升级至log4j2解决了相关的问题" class="headerlink" title="解决方案：升级至log4j2解决了相关的问题"></a>解决方案：升级至log4j2解决了相关的问题</h3><p>但是发现，还是会存在死锁问题，通过分析发现log4j2-disruptor队列有问题，导致阻塞。</p>
+<p><img src="/images/log4j-deadlock_2.png" alt="image"></p>
+<p>解决方案：升级log4j2的版本</p>
+<h3 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h3><ol>
+<li><a target="_blank" rel="noopener" href="https://www.cnblogs.com/flystar32/p/6751895.html">https://www.cnblogs.com/flystar32/p/6751895.html</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/apache/logging-log4j2/commit/7a7f5e4ed1ce8a27357a12a06d32ca2b04e5eb56">https://github.com/apache/logging-log4j2/commit/7a7f5e4ed1ce8a27357a12a06d32ca2b04e5eb56</a></li>
+</ol>
+
+    </div>
+
+    <footer class="post-footer">
+        
+            <div class="meta-item">
+                <i class="fas fa-tags"></i>
+                
+                    <span class="tag">线上问题</span>
+                
+                    <span class="tag">log4j</span>
+                
+                    <span class="tag">cpu</span>
+                
+            </div>
+        
+    </footer>
+</article>
+        </div>
+    </div>
+
+    <script>
+        const navToggle = document.querySelector('.nav-toggle');
+        const mobileNav = document.querySelector('.mobile-nav-menu');
+        
+        navToggle.addEventListener('click', function() {
+            mobileNav.classList.toggle('active');
+            this.classList.toggle('active');
+        });
+    </script>
+</body>
+</html>

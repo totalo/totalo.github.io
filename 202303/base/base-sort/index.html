@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4545022751103525"
+     crossorigin="anonymous"></script>
+    <title>晴天的博客</title>
+    
+<link rel="stylesheet" href="/css/style.css">
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+<body>
+    <!-- 移动端顶部导航 -->
+    <div class="mobile-nav">
+        <div class="mobile-nav-header">
+            <h1>晴天的博客</h1>
+            <button class="nav-toggle">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+        </div>
+        <div class="mobile-nav-menu">
+            <nav class="main-nav">
+                <ul>
+                    <li class="nav-item"><a href="/">最新文章</a></li>
+                    <li class="nav-item"><a href="/archives">文章存档</a></li>
+                    <!-- <li class="nav-item"><a href="/about">关于我</a></li> -->
+                </ul>
+            </nav>
+        </div>
+    </div>
+
+    <div class="container">
+        <!-- PC端侧边栏 -->
+        <div class="sidebar">
+            <div class="logo">
+                <h1>晴天的博客</h1>
+            </div>
+            <nav class="main-nav">
+                <ul>
+                    <li class="nav-item"><a href="/">最新文章</a></li>
+                    <li class="nav-item"><a href="/archives">文章存档</a></li>
+                    <!-- <li class="nav-item"><a href="/about">关于我</a></li> -->
+                </ul>
+            </nav>
+        </div>
+        <div class="main-content">
+            <article class="post">
+    <header class="post-header">
+        <h1 class="post-title">算法基础之排序</h1>
+        <div class="post-meta">
+            <div class="meta-item">
+                <i class="far fa-calendar-alt"></i>
+                <span>2023年03月01日</span>
+            </div>
+            
+            
+                <div class="meta-item">
+                    <i class="far fa-user"></i>
+                    <span>totalo</span>
+                </div>
+            
+            
+            <div class="meta-item">
+                <i class="far fa-file-word"></i>
+                <span>483 字</span>
+            </div>
+            
+            <div class="meta-item">
+                <i class="far fa-clock"></i>
+                <span>预计阅读 2 分钟</span>
+            </div>
+
+            
+            
+            
+                <div class="meta-item">
+                    <i class="fas fa-tags"></i>
+                    
+                        <span class="tag">基础</span>
+                    
+                        <span class="tag">算法</span>
+                    
+                        <span class="tag">排序</span>
+                    
+                </div>
+            
+        </div>
+    </header>
+    <div class="post-content">
+        <p>本文主要介绍冒泡排序，包括原始的排序以及优化后的版本，附带的介绍了一些交换的技巧。</p>
+<span id="more"></span>
+
+<h1 id="排序算法"><a href="#排序算法" class="headerlink" title="排序算法"></a>排序算法</h1><h2 id="冒泡排序"><a href="#冒泡排序" class="headerlink" title="冒泡排序"></a>冒泡排序</h2><p>第一种写法</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">bubbleSort</span><span class="params">(<span class="type">int</span>[] arr)</span> &#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; arr.length - <span class="number">1</span>; i++) &#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">j</span> <span class="operator">=</span> <span class="number">0</span>; j &lt; arr.length - <span class="number">1</span> - i; j++) &#123;</span><br><span class="line">            <span class="keyword">if</span> (arr[j] &gt; arr[j + <span class="number">1</span>]) &#123;</span><br><span class="line">                <span class="type">int</span> <span class="variable">temp</span> <span class="operator">=</span> arr[j];</span><br><span class="line">                arr[j] = arr[j + <span class="number">1</span>];</span><br><span class="line">                arr[j + <span class="number">1</span>] = temp;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>第二种改良写法</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">bubbleSort</span><span class="params">(<span class="type">int</span>[] arr)</span> &#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; arr.length - <span class="number">1</span>; i++) &#123;</span><br><span class="line">        <span class="type">boolean</span> <span class="variable">flag</span> <span class="operator">=</span> <span class="literal">false</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">j</span> <span class="operator">=</span> <span class="number">0</span>; j &lt; arr.length - <span class="number">1</span> - i; j++) &#123;</span><br><span class="line">            <span class="keyword">if</span> (arr[j] &gt; arr[j + <span class="number">1</span>]) &#123;</span><br><span class="line">                <span class="type">int</span> <span class="variable">temp</span> <span class="operator">=</span> arr[j];</span><br><span class="line">                arr[j] = arr[j + <span class="number">1</span>];</span><br><span class="line">                arr[j + <span class="number">1</span>] = temp;</span><br><span class="line">                flag = <span class="literal">true</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (!flag) &#123;</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>第三种写法，在下一轮比较时，只需比较到上一轮比较中，最后一次发生交换的位置即可。因为后面的所有元素都没有发生过交换，必然已经有序了。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">bubbleSort</span><span class="params">(<span class="type">int</span>[] arr)</span> &#123;</span><br><span class="line">    <span class="type">int</span> <span class="variable">lastExchangeIndex</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">    <span class="type">int</span> <span class="variable">sortBorder</span> <span class="operator">=</span> arr.length - <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; arr.length - <span class="number">1</span>; i++) &#123;</span><br><span class="line">        <span class="type">boolean</span> <span class="variable">flag</span> <span class="operator">=</span> <span class="literal">false</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">j</span> <span class="operator">=</span> <span class="number">0</span>; j &lt; sortBorder; j++) &#123;</span><br><span class="line">            <span class="keyword">if</span> (arr[j] &gt; arr[j + <span class="number">1</span>]) &#123;</span><br><span class="line">                <span class="type">int</span> <span class="variable">temp</span> <span class="operator">=</span> arr[j];</span><br><span class="line">                arr[j] = arr[j + <span class="number">1</span>];</span><br><span class="line">                arr[j + <span class="number">1</span>] = temp;</span><br><span class="line">                flag = <span class="literal">true</span>;</span><br><span class="line">                lastExchangeIndex = j;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        sortBorder = lastExchangeIndex;</span><br><span class="line">        <span class="keyword">if</span> (!flag) &#123;</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="附录：交换的技巧"><a href="#附录：交换的技巧" class="headerlink" title="附录：交换的技巧"></a>附录：交换的技巧</h2><p>一般的我们会用中间变量，进行两个值的交换，如下</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> <span class="variable">temp</span> <span class="operator">=</span> arr[j];</span><br><span class="line">arr[j] = arr[j + <span class="number">1</span>];</span><br><span class="line">arr[j + <span class="number">1</span>] = temp;</span><br></pre></td></tr></table></figure>
+
+<p>但是这种情况，需要额外的空间，如果我们不使用额外的空间，如何交换呢？</p>
+<p>加法：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">arr[j] = arr[j] + arr[j + <span class="number">1</span>];</span><br><span class="line">arr[j + <span class="number">1</span>] = arr[j] - arr[j + <span class="number">1</span>];</span><br><span class="line">arr[j] = arr[j] - arr[j + <span class="number">1</span>];</span><br></pre></td></tr></table></figure>
+
+<p>减法：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">arr[j] = arr[j] - arr[j + <span class="number">1</span>];</span><br><span class="line">arr[j + <span class="number">1</span>] = arr[j] + arr[j + <span class="number">1</span>];</span><br><span class="line">arr[j] = arr[j + <span class="number">1</span>] - arr[j];</span><br></pre></td></tr></table></figure>
+
+<p>但是这两种方式都有可能造成数组越界，最好使用异或的方式进行交换。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">arr[j] = arr[j] ^ arr[j + <span class="number">1</span>];</span><br><span class="line">arr[j + <span class="number">1</span>] = arr[j] ^ arr[j + <span class="number">1</span>];</span><br><span class="line">arr[j] = arr[j] ^ arr[j + <span class="number">1</span>];</span><br></pre></td></tr></table></figure>
+
+
+
+    </div>
+
+    <footer class="post-footer">
+        
+            <div class="meta-item">
+                <i class="fas fa-tags"></i>
+                
+                    <span class="tag">基础</span>
+                
+                    <span class="tag">算法</span>
+                
+                    <span class="tag">排序</span>
+                
+            </div>
+        
+    </footer>
+</article>
+        </div>
+    </div>
+
+    <script>
+        const navToggle = document.querySelector('.nav-toggle');
+        const mobileNav = document.querySelector('.mobile-nav-menu');
+        
+        navToggle.addEventListener('click', function() {
+            mobileNav.classList.toggle('active');
+            this.classList.toggle('active');
+        });
+    </script>
+</body>
+</html>

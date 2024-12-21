@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4545022751103525"
+     crossorigin="anonymous"></script>
+    <title>晴天的博客</title>
+    
+<link rel="stylesheet" href="/css/style.css">
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+<body>
+    <!-- 移动端顶部导航 -->
+    <div class="mobile-nav">
+        <div class="mobile-nav-header">
+            <h1>晴天的博客</h1>
+            <button class="nav-toggle">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+        </div>
+        <div class="mobile-nav-menu">
+            <nav class="main-nav">
+                <ul>
+                    <li class="nav-item"><a href="/">最新文章</a></li>
+                    <li class="nav-item"><a href="/archives">文章存档</a></li>
+                    <!-- <li class="nav-item"><a href="/about">关于我</a></li> -->
+                </ul>
+            </nav>
+        </div>
+    </div>
+
+    <div class="container">
+        <!-- PC端侧边栏 -->
+        <div class="sidebar">
+            <div class="logo">
+                <h1>晴天的博客</h1>
+            </div>
+            <nav class="main-nav">
+                <ul>
+                    <li class="nav-item"><a href="/">最新文章</a></li>
+                    <li class="nav-item"><a href="/archives">文章存档</a></li>
+                    <!-- <li class="nav-item"><a href="/about">关于我</a></li> -->
+                </ul>
+            </nav>
+        </div>
+        <div class="main-content">
+            <article class="post">
+    <header class="post-header">
+        <h1 class="post-title">开发最佳实践与相关规范</h1>
+        <div class="post-meta">
+            <div class="meta-item">
+                <i class="far fa-calendar-alt"></i>
+                <span>2024年08月31日</span>
+            </div>
+            
+            
+                <div class="meta-item">
+                    <i class="far fa-user"></i>
+                    <span>totalo</span>
+                </div>
+            
+            
+            <div class="meta-item">
+                <i class="far fa-file-word"></i>
+                <span>1.6k 字</span>
+            </div>
+            
+            <div class="meta-item">
+                <i class="far fa-clock"></i>
+                <span>预计阅读 7 分钟</span>
+            </div>
+
+            
+            
+            
+                <div class="meta-item">
+                    <i class="fas fa-tags"></i>
+                    
+                        <span class="tag">最佳实践</span>
+                    
+                </div>
+            
+        </div>
+    </header>
+    <div class="post-content">
+        <p>本文主要介绍一些开发中遇到的最佳实践，以及相关规范。</p>
+<span id="more"></span>
+
+<h3 id="1、在网络编程中，IO线程中不能有阻塞操作，通常将阻塞线程转发到业务线程池中异步操作。"><a href="#1、在网络编程中，IO线程中不能有阻塞操作，通常将阻塞线程转发到业务线程池中异步操作。" class="headerlink" title="1、在网络编程中，IO线程中不能有阻塞操作，通常将阻塞线程转发到业务线程池中异步操作。"></a>1、在网络编程中，IO线程中不能有阻塞操作，通常将阻塞线程转发到业务线程池中异步操作。</h3><h3 id="2、序列化会通过反射调用无参构造器返回一个新对象，破坏单例模式。-解决方法是添加readResolve-方法，自定义返回对象策略。"><a href="#2、序列化会通过反射调用无参构造器返回一个新对象，破坏单例模式。-解决方法是添加readResolve-方法，自定义返回对象策略。" class="headerlink" title="2、序列化会通过反射调用无参构造器返回一个新对象，破坏单例模式。 解决方法是添加readResolve()方法，自定义返回对象策略。"></a>2、序列化会通过反射调用无参构造器返回一个新对象，破坏单例模式。 解决方法是添加readResolve()方法，自定义返回对象策略。</h3><h3 id="3、线程池可以调用-prestartAllCoreThreads-或者-prestartCoreThread-方法的话，可以提前创建等于核心线程数的线程数量，这种方式被称为预热，在抢购系统中就经常被用到。"><a href="#3、线程池可以调用-prestartAllCoreThreads-或者-prestartCoreThread-方法的话，可以提前创建等于核心线程数的线程数量，这种方式被称为预热，在抢购系统中就经常被用到。" class="headerlink" title="3、线程池可以调用 prestartAllCoreThreads() 或者 prestartCoreThread() 方法的话，可以提前创建等于核心线程数的线程数量，这种方式被称为预热，在抢购系统中就经常被用到。"></a>3、线程池可以调用 prestartAllCoreThreads() 或者 prestartCoreThread() 方法的话，可以提前创建等于核心线程数的线程数量，这种方式被称为预热，在抢购系统中就经常被用到。</h3><h3 id="4、日志配置相关"><a href="#4、日志配置相关" class="headerlink" title="4、日志配置相关"></a>4、日志配置相关</h3><ul>
+<li><strong>建议日志配置文件中对所有Appender的PatternLayout都增加%ex配置</strong>，因为如果没有显式配置%ex，则异常格式化输出的默认配置是%xEx，此时会打印异常的扩展信息（JAR名称和版本），可能导致业务线程Block。</li>
+<li><strong>不建议日志配置文件中使用AsyncAppender，建议自定义Appender实现</strong>，因为AsyncAppender是日志框架默认提供的，目前最新版本中仍然存在日志事件入队前就触发加载异常堆栈类的问题，可能导致业务线程Block。</li>
+<li><strong>不建议生产环境使用ConsoleAppender</strong>，因为输出日志到Console时有synchronized同步操作，高并发场景下非常容易导致业务线程Block。</li>
+<li><strong>不建议在配置文件中使用AsyncLogger标签</strong>，因为日志事件元素在入队前就会触发加载异常堆栈类，可能导致业务线程Block。如果希望使用Log4j2提供的异步日志AsyncLogger，建议配置Log4jContextSelector&#x3D;org.apache.logging.log4j.core.async.AsyncLoggerContextSelector参数，开启异步日志。</li>
+</ul>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">configuration</span> <span class="attr">status</span>=<span class="string">&quot;warn&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">appenders</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">Console</span> <span class="attr">name</span>=<span class="string">&quot;Console&quot;</span> <span class="attr">target</span>=<span class="string">&quot;SYSTEM_OUT&quot;</span> <span class="attr">follow</span>=<span class="string">&quot;true&quot;</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">PatternLayout</span> <span class="attr">pattern</span>=<span class="string">&quot;%d&#123;yyyy/MM/dd HH:mm:ss.SSS&#125; %t [%p] %c&#123;1&#125; (%F:%L) %msg%n %ex&quot;</span> /&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">Console</span>&gt;</span></span><br><span class="line"></span><br><span class="line">        <span class="tag">&lt;<span class="name">XMDFile</span> <span class="attr">name</span>=<span class="string">&quot;ShepherdLog&quot;</span> <span class="attr">fileName</span>=<span class="string">&quot;shepherd.log&quot;</span>&gt;</span></span><br><span class="line">          	<span class="tag">&lt;<span class="name">PatternLayout</span> <span class="attr">pattern</span>=<span class="string">&quot;%d&#123;yyyy/MM/dd HH:mm:ss.SSS&#125; %t [%p] %c&#123;1&#125; (%F:%L) %msg%n %ex&quot;</span> /&gt;</span></span><br><span class="line">	      <span class="tag">&lt;/<span class="name">XMDFile</span>&gt;</span></span><br><span class="line"></span><br><span class="line">        <span class="comment">&lt;!--XMDFile异步磁盘日志配置示例--&gt;</span></span><br><span class="line">        <span class="comment">&lt;!--默认按天&amp;按512M文件大小切分日志，默认最多保留30个日志文件。--&gt;</span></span><br><span class="line">        <span class="comment">&lt;!--注意：fileName前会自动增加文件路径，只配置文件名即可--&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">XMDFile</span> <span class="attr">name</span>=<span class="string">&quot;LocalServiceLog&quot;</span> <span class="attr">fileName</span>=<span class="string">&quot;request.log&quot;</span>&gt;</span></span><br><span class="line">	          <span class="tag">&lt;<span class="name">PatternLayout</span> <span class="attr">pattern</span>=<span class="string">&quot;%d&#123;yyyy/MM/dd HH:mm:ss.SSS&#125; %t [%p] %c&#123;1&#125; (%F:%L) %msg%n %ex&quot;</span> /&gt;</span></span><br><span class="line">	      <span class="tag">&lt;/<span class="name">XMDFile</span>&gt;</span></span><br><span class="line">  			</span><br><span class="line">      	<span class="comment">&lt;!-- 使用自定义的AsyncScribeAppender代替原有的AsycncAppender --&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">AsyncScribe</span> <span class="attr">name</span>=<span class="string">&quot;LogCenterAsync&quot;</span> <span class="attr">blocking</span>=<span class="string">&quot;false&quot;</span>&gt;</span></span><br><span class="line">            <span class="comment">&lt;!-- 在指定日志名方面，scribeCategory 和 appkey 两者至少存在一种，且 scribeCategory 高于 appkey。--&gt;</span></span><br><span class="line">            <span class="comment">&lt;!-- &lt;Property name=&quot;scribeCategory&quot;&gt;data_update_test_lc&lt;/Property&gt; --&gt;</span></span><br><span class="line">           <span class="tag">&lt;<span class="name">LcLayout</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">AsyncScribe</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">appenders</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">loggers</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">logger</span> <span class="attr">name</span>=<span class="string">&quot;com.sankuai.shepherd&quot;</span> <span class="attr">level</span>=<span class="string">&quot;info&quot;</span> <span class="attr">additivity</span>=<span class="string">&quot;false&quot;</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">AppenderRef</span> <span class="attr">ref</span>=<span class="string">&quot;ShepherdLog&quot;</span> <span class="attr">level</span>=<span class="string">&quot;warn&quot;</span>/&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">AppenderRef</span> <span class="attr">ref</span>=<span class="string">&quot;LogCenterAsync&quot;</span> <span class="attr">level</span>=<span class="string">&quot;info&quot;</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">logger</span>&gt;</span></span><br><span class="line"></span><br><span class="line">        <span class="tag">&lt;<span class="name">root</span> <span class="attr">level</span>=<span class="string">&quot;info&quot;</span>&gt;</span></span><br><span class="line">            <span class="comment">&lt;!--Console日志是同步、阻塞的，推荐只在本地调试时使用，线上将该配置去掉--&gt;</span></span><br><span class="line">            <span class="comment">&lt;!--appender-ref ref=&quot;Console&quot; /--&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">appender-ref</span> <span class="attr">ref</span>=<span class="string">&quot;LocalServiceLog&quot;</span>/&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">appender-ref</span> <span class="attr">ref</span>=<span class="string">&quot;LogCenterAsync&quot;</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">root</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">loggers</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">configuration</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="5、对于自定义的类型，如果要实现-Comparable，请记得-equals、hashCode、compareTo-三者逻辑一致。"><a href="#5、对于自定义的类型，如果要实现-Comparable，请记得-equals、hashCode、compareTo-三者逻辑一致。" class="headerlink" title="5、对于自定义的类型，如果要实现 Comparable，请记得 equals、hashCode、compareTo 三者逻辑一致。"></a>5、对于自定义的类型，如果要实现 Comparable，请记得 equals、hashCode、compareTo 三者逻辑一致。</h3><h3 id="6、网络优化的各个参数如下："><a href="#6、网络优化的各个参数如下：" class="headerlink" title="6、网络优化的各个参数如下："></a>6、网络优化的各个参数如下：</h3><p>backlog：该参数，每个程序可以在listen时自己设置，和另外一个参数（ &#x2F;proc&#x2F;sys&#x2F;net&#x2F;core&#x2F;somaxconn）一起，影响 全连接队列的容量。 具体算法是：min （backlog， &#x2F;proc&#x2F;sys&#x2F;net&#x2F;core&#x2F;somaxconn ），最终可以建立的连接为 该值 + 1。</p>
+<p>&#x2F;proc&#x2F;sys&#x2F;net&#x2F;ipv4&#x2F;tcp_max_syn_backlog ： 半连接队列的容量。（os层面，只能设一个，由所有程序共享）</p>
+<p>&#x2F;proc&#x2F;sys&#x2F;net&#x2F;ipv4&#x2F;tcp_synack_retries ：分两种情况：</p>
+<p>a、tcp_abort_on_overflow &#x3D; 0，服务端 accept 队列满了，客户端发来 ack ， 服务端直接忽略该ack。因此服务端一直处于 SYN RECEIVED，触发了该状态下的定时器，该定时器会重传 SYN&#x2F;ACK 给客户端，（不超过 &#x2F;proc&#x2F;sys&#x2F;net&#x2F;ipv4&#x2F;tcp_synack_retries 指定的次数 ）， 超过后，服务端不再重传，后续也不会再有任何动作；如果客户端此时传输数据的话，服务端会返回 RST；</p>
+<p>b、tcp_abort_on_overflow &#x3D; 1，<strong>服务端 accept 队列满了，客户端发来 ack ， 服务端直接返回 RST 。</strong></p>
+<h3 id="7、go语言为啥存在部分传指针的原因"><a href="#7、go语言为啥存在部分传指针的原因" class="headerlink" title="7、go语言为啥存在部分传指针的原因"></a>7、go语言为啥存在部分传指针的原因</h3><p>当我们验证了 Go 语言中大多数常见的数据结构之后，其实能够推测出 Go 语言在传递参数时使用了传值的方式，接收方收到参数时会对这些参数进行复制；了解到这一点之后，在传递数组或者内存占用非常大的结构体时，我们应该尽量使用指针作为参数类型来避免发生数据拷贝进而影响性能。</p>
+<h3 id="8、在spring体系中，只要子类被spring接管即可，类中初始化顺序为-构造函数、-Autowire、-PostStruct"><a href="#8、在spring体系中，只要子类被spring接管即可，类中初始化顺序为-构造函数、-Autowire、-PostStruct" class="headerlink" title="8、在spring体系中，只要子类被spring接管即可，类中初始化顺序为 构造函数、@Autowire、@PostStruct"></a>8、在spring体系中，只要子类被spring接管即可，类中初始化顺序为 构造函数、@Autowire、@PostStruct</h3><h3 id="9、Java9以及以后的反射使用示例"><a href="#9、Java9以及以后的反射使用示例" class="headerlink" title="9、Java9以及以后的反射使用示例"></a>9、Java9以及以后的反射使用示例</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">try</span> &#123;</span><br><span class="line">            <span class="type">Field</span> <span class="variable">field</span> <span class="operator">=</span> Unsafe.class.getDeclaredField(<span class="string">&quot;theUnsafe&quot;</span>);</span><br><span class="line">            field.setAccessible(<span class="literal">true</span>);</span><br><span class="line">            <span class="type">Unsafe</span> <span class="variable">unsafe</span> <span class="operator">=</span> (Unsafe) field.get(<span class="literal">null</span>);</span><br><span class="line">            <span class="type">Method</span> <span class="variable">cleaner</span> <span class="operator">=</span> method(unsafe, <span class="string">&quot;invokeCleaner&quot;</span>, <span class="keyword">new</span> <span class="title class_">Class</span>[] &#123;ByteBuffer.class&#125;);</span><br><span class="line">            cleaner.invoke(unsafe, viewed(buffer));</span><br><span class="line">        &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">IllegalStateException</span>(e);</span><br><span class="line">        &#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="10、mysql中-如-select-x-y-where-x-y，当x-y有联合索引时才能命中索引，有"><a href="#10、mysql中-如-select-x-y-where-x-y，当x-y有联合索引时才能命中索引，有" class="headerlink" title="10、mysql中  如 select x,y where x&#x3D;y，当x,y有联合索引时才能命中索引，有"></a>10、mysql中  如 select x,y where x&#x3D;y，当x,y有联合索引时才能命中索引，有</h3><h3 id="11、多线程事务处理最佳实践，不能使用-Transaction注解，需要手动提交事务"><a href="#11、多线程事务处理最佳实践，不能使用-Transaction注解，需要手动提交事务" class="headerlink" title="11、多线程事务处理最佳实践，不能使用@Transaction注解，需要手动提交事务"></a>11、多线程事务处理最佳实践，不能使用@Transaction注解，需要手动提交事务</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Resource</span></span><br><span class="line">SqlContext sqlContext;</span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 测试多线程事务.</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> employeeDOList</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">saveThread</span><span class="params">(List&lt;EmployeeDO&gt; employeeDOList)</span> <span class="keyword">throws</span> SQLException &#123;</span><br><span class="line">    <span class="comment">// 获取数据库连接,获取会话(内部自有事务)</span></span><br><span class="line">    <span class="type">SqlSession</span> <span class="variable">sqlSession</span> <span class="operator">=</span> sqlContext.getSqlSession();</span><br><span class="line">    <span class="type">Connection</span> <span class="variable">connection</span> <span class="operator">=</span> sqlSession.getConnection();</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">        <span class="comment">// 设置手动提交</span></span><br><span class="line">        connection.setAutoCommit(<span class="literal">false</span>);</span><br><span class="line">        <span class="type">EmployeeMapper</span> <span class="variable">employeeMapper</span> <span class="operator">=</span> sqlSession.getMapper(EmployeeMapper.class);</span><br><span class="line">        <span class="comment">//先做删除操作</span></span><br><span class="line">        employeeMapper.delete(<span class="literal">null</span>);</span><br><span class="line">        <span class="type">ExecutorService</span> <span class="variable">service</span> <span class="operator">=</span> ExecutorConfig.getThreadPool();</span><br><span class="line">        List&lt;Callable&lt;Integer&gt;&gt; callableList  = <span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;&gt;();</span><br><span class="line">        List&lt;List&lt;EmployeeDO&gt;&gt; lists=averageAssign(employeeDOList, <span class="number">5</span>);</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span><span class="number">0</span>;i&lt;lists.size();i++)&#123;</span><br><span class="line">            List&lt;EmployeeDO&gt; list  = lists.get(i);</span><br><span class="line">            Callable&lt;Integer&gt; callable = () -&gt; employeeMapper.saveBatch(list);</span><br><span class="line">            callableList.add(callable);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">//执行子线程</span></span><br><span class="line">       List&lt;Future&lt;Integer&gt;&gt; futures = service.invokeAll(callableList);</span><br><span class="line">        <span class="keyword">for</span> (Future&lt;Integer&gt; future:futures) &#123;</span><br><span class="line">            <span class="keyword">if</span> (future.get()&lt;=<span class="number">0</span>)&#123;</span><br><span class="line">                connection.rollback();</span><br><span class="line">                 <span class="keyword">return</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        connection.commit();</span><br><span class="line">        System.out.println(<span class="string">&quot;添加完毕&quot;</span>);</span><br><span class="line">    &#125;<span class="keyword">catch</span> (Exception e)&#123;</span><br><span class="line">        connection.rollback();</span><br><span class="line">        log.info(<span class="string">&quot;error&quot;</span>,e);</span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">ServiceException</span>(<span class="string">&quot;002&quot;</span>,<span class="string">&quot;出现异常&quot;</span>);</span><br><span class="line">       <span class="comment">// throw new ServiceException(ExceptionCodeEnum.EMPLOYEE_SAVE_OR_UPDATE_ERROR);</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+    </div>
+
+    <footer class="post-footer">
+        
+            <div class="meta-item">
+                <i class="fas fa-tags"></i>
+                
+                    <span class="tag">最佳实践</span>
+                
+            </div>
+        
+    </footer>
+</article>
+        </div>
+    </div>
+
+    <script>
+        const navToggle = document.querySelector('.nav-toggle');
+        const mobileNav = document.querySelector('.mobile-nav-menu');
+        
+        navToggle.addEventListener('click', function() {
+            mobileNav.classList.toggle('active');
+            this.classList.toggle('active');
+        });
+    </script>
+</body>
+</html>

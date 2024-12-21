@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4545022751103525"
+     crossorigin="anonymous"></script>
+    <title>晴天的博客</title>
+    
+<link rel="stylesheet" href="/css/style.css">
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+<body>
+    <!-- 移动端顶部导航 -->
+    <div class="mobile-nav">
+        <div class="mobile-nav-header">
+            <h1>晴天的博客</h1>
+            <button class="nav-toggle">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+        </div>
+        <div class="mobile-nav-menu">
+            <nav class="main-nav">
+                <ul>
+                    <li class="nav-item"><a href="/">最新文章</a></li>
+                    <li class="nav-item"><a href="/archives">文章存档</a></li>
+                    <!-- <li class="nav-item"><a href="/about">关于我</a></li> -->
+                </ul>
+            </nav>
+        </div>
+    </div>
+
+    <div class="container">
+        <!-- PC端侧边栏 -->
+        <div class="sidebar">
+            <div class="logo">
+                <h1>晴天的博客</h1>
+            </div>
+            <nav class="main-nav">
+                <ul>
+                    <li class="nav-item"><a href="/">最新文章</a></li>
+                    <li class="nav-item"><a href="/archives">文章存档</a></li>
+                    <!-- <li class="nav-item"><a href="/about">关于我</a></li> -->
+                </ul>
+            </nav>
+        </div>
+        <div class="main-content">
+            <article class="post">
+    <header class="post-header">
+        <h1 class="post-title">编程基础之设计模式</h1>
+        <div class="post-meta">
+            <div class="meta-item">
+                <i class="far fa-calendar-alt"></i>
+                <span>2023年02月06日</span>
+            </div>
+            
+            
+                <div class="meta-item">
+                    <i class="far fa-user"></i>
+                    <span>totalo</span>
+                </div>
+            
+            
+            <div class="meta-item">
+                <i class="far fa-file-word"></i>
+                <span>260 字</span>
+            </div>
+            
+            <div class="meta-item">
+                <i class="far fa-clock"></i>
+                <span>预计阅读 1 分钟</span>
+            </div>
+
+            
+            
+            
+                <div class="meta-item">
+                    <i class="fas fa-tags"></i>
+                    
+                        <span class="tag">基础</span>
+                    
+                        <span class="tag">设计模式</span>
+                    
+                </div>
+            
+        </div>
+    </header>
+    <div class="post-content">
+        <p>本文主要介绍核心的设计模式以及一些具体的用法</p>
+<span id="more"></span>
+
+<blockquote>
+<p>todo</p>
+</blockquote>
+<p>[[TOC]]</p>
+<h3 id="单例模式"><a href="#单例模式" class="headerlink" title="单例模式"></a>单例模式</h3><p>1、懒汉模式、线程不安全</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Singleton</span> &#123;</span><br><span class="line">		<span class="keyword">public</span> <span class="keyword">static</span> Singleton singleton;</span><br><span class="line">		<span class="keyword">private</span> <span class="title function_">Singleton</span> <span class="params">()</span> &#123;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">public</span> <span class="keyword">static</span> Singleton <span class="title function_">getInstance</span><span class="params">()</span> &#123;</span><br><span class="line">     		<span class="keyword">if</span> (<span class="literal">null</span> == singleton) &#123;</span><br><span class="line">          singleton = <span class="keyword">new</span> <span class="title class_">Singleton</span>();</span><br><span class="line">        &#125;</span><br><span class="line">      <span class="keyword">return</span> singleton;</span><br><span class="line">		&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>2、懒汉模式，线程安全</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Singleton</span> &#123;</span><br><span class="line">		<span class="keyword">public</span> <span class="keyword">static</span> Singleton singleton;</span><br><span class="line">		<span class="keyword">private</span> <span class="title function_">Singleton</span> <span class="params">()</span> &#123;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">synchronized</span> Singleton <span class="title function_">getInstance</span><span class="params">()</span> &#123;</span><br><span class="line">     		<span class="keyword">if</span> (<span class="literal">null</span> == singleton) &#123;</span><br><span class="line">          singleton = <span class="keyword">new</span> <span class="title class_">Singleton</span>();</span><br><span class="line">        &#125;</span><br><span class="line">      <span class="keyword">return</span> singleton;</span><br><span class="line">		&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>3、饿汉模式，线程安全</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Singleton</span> &#123;</span><br><span class="line">  <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="type">Singleton</span> <span class="variable">singleton</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Singleton</span>();</span><br><span class="line">  <span class="keyword">private</span> <span class="title function_">Singleton</span><span class="params">()</span> &#123;&#125;</span><br><span class="line">  <span class="keyword">public</span> <span class="keyword">static</span> Singleton <span class="title function_">getInstantce</span><span class="params">()</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> singleton;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>4、DCL双重检查锁</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Singleton</span> &#123;</span><br><span class="line">  <span class="keyword">private</span> <span class="keyword">volatile</span> <span class="keyword">static</span> Singleton singleton;</span><br><span class="line">  <span class="keyword">private</span> <span class="title function_">Singleton</span> <span class="params">()</span>&#123;&#125;  </span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> Singleton <span class="title function_">getSingleton</span><span class="params">()</span> &#123;  </span><br><span class="line">    <span class="keyword">if</span> (singleton == <span class="literal">null</span>) &#123;  </span><br><span class="line">        <span class="keyword">synchronized</span> (Singleton.class) &#123;  </span><br><span class="line">        <span class="keyword">if</span> (singleton == <span class="literal">null</span>) &#123;  </span><br><span class="line">            singleton = <span class="keyword">new</span> <span class="title class_">Singleton</span>();  </span><br><span class="line">        &#125;  </span><br><span class="line">        &#125;  </span><br><span class="line">    &#125;  </span><br><span class="line">    <span class="keyword">return</span> singleton;  </span><br><span class="line">    &#125; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>5、登记式\静态内部类，线程安全，延迟加载</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Singleton</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">class</span> <span class="title class_">SingletonHodler</span> &#123;</span><br><span class="line">        <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="type">Singleton</span> <span class="variable">INSTANCE</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Singleton</span>();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">private</span> <span class="title function_">Singleton</span><span class="params">()</span> &#123;&#125;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> Singleton <span class="title function_">getInstance</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> SingletonHodler.INSTANCE;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>6、枚举</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">enum</span> <span class="title class_">Singleton</span> &#123;</span><br><span class="line">    B &#123;</span><br><span class="line">        <span class="meta">@Override</span></span><br><span class="line">        <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">whatever</span><span class="params">()</span> &#123;</span><br><span class="line">            <span class="built_in">super</span>.whatever();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;,</span><br><span class="line">    </span><br><span class="line">    INSTANCE;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">whatever</span><span class="params">()</span> &#123;</span><br><span class="line">        </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+    </div>
+
+    <footer class="post-footer">
+        
+            <div class="meta-item">
+                <i class="fas fa-tags"></i>
+                
+                    <span class="tag">基础</span>
+                
+                    <span class="tag">设计模式</span>
+                
+            </div>
+        
+    </footer>
+</article>
+        </div>
+    </div>
+
+    <script>
+        const navToggle = document.querySelector('.nav-toggle');
+        const mobileNav = document.querySelector('.mobile-nav-menu');
+        
+        navToggle.addEventListener('click', function() {
+            mobileNav.classList.toggle('active');
+            this.classList.toggle('active');
+        });
+    </script>
+</body>
+</html>

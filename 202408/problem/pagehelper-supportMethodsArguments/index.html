@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4545022751103525"
+     crossorigin="anonymous"></script>
+    <title>晴天的博客</title>
+    
+<link rel="stylesheet" href="/css/style.css">
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+<body>
+    <!-- 移动端顶部导航 -->
+    <div class="mobile-nav">
+        <div class="mobile-nav-header">
+            <h1>晴天的博客</h1>
+            <button class="nav-toggle">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+        </div>
+        <div class="mobile-nav-menu">
+            <nav class="main-nav">
+                <ul>
+                    <li class="nav-item"><a href="/">最新文章</a></li>
+                    <li class="nav-item"><a href="/archives">文章存档</a></li>
+                    <!-- <li class="nav-item"><a href="/about">关于我</a></li> -->
+                </ul>
+            </nav>
+        </div>
+    </div>
+
+    <div class="container">
+        <!-- PC端侧边栏 -->
+        <div class="sidebar">
+            <div class="logo">
+                <h1>晴天的博客</h1>
+            </div>
+            <nav class="main-nav">
+                <ul>
+                    <li class="nav-item"><a href="/">最新文章</a></li>
+                    <li class="nav-item"><a href="/archives">文章存档</a></li>
+                    <!-- <li class="nav-item"><a href="/about">关于我</a></li> -->
+                </ul>
+            </nav>
+        </div>
+        <div class="main-content">
+            <article class="post">
+    <header class="post-header">
+        <h1 class="post-title">Mybatis-Pagehelper配置参数supportMethodsArguments引起的血案</h1>
+        <div class="post-meta">
+            <div class="meta-item">
+                <i class="far fa-calendar-alt"></i>
+                <span>2024年08月31日</span>
+            </div>
+            
+            
+                <div class="meta-item">
+                    <i class="far fa-user"></i>
+                    <span>totalo</span>
+                </div>
+            
+            
+            <div class="meta-item">
+                <i class="far fa-file-word"></i>
+                <span>1.2k 字</span>
+            </div>
+            
+            <div class="meta-item">
+                <i class="far fa-clock"></i>
+                <span>预计阅读 5 分钟</span>
+            </div>
+
+            
+            
+            
+                <div class="meta-item">
+                    <i class="fas fa-tags"></i>
+                    
+                        <span class="tag">线上问题</span>
+                    
+                        <span class="tag">pagehelper</span>
+                    
+                        <span class="tag">MyBatis</span>
+                    
+                        <span class="tag">MySQL</span>
+                    
+                </div>
+            
+        </div>
+    </header>
+    <div class="post-content">
+        <p>本文主要记录了一次使用 pageHelper 的 supportMethodsArguments 参数，在查询的时候，如果参数中有 pageNum 和 pageSize，就会执行分页逻辑，导致查询结果不正常,进而导致定时任务执行失败的问题。</p>
+<span id="more"></span>
+
+<h3 id="0x00-背景"><a href="#0x00-背景" class="headerlink" title="0x00 背景"></a>0x00 背景</h3><p>一个历史悠久的项目，使用的技术栈主要是 spring cloud 体系，属于 service 范畴，不给外部提供接口，但是集成了 myabtis-pagehelper，具体的版本如下：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.github.pagehelper<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>pagehelper-spring-boot-starter<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>1.4.6<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.mybatis.spring.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>mybatis-spring-boot-starter<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>1.3.1<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>相关的配置：</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">pagehelper:</span></span><br><span class="line">  <span class="attr">helperDialect:</span> <span class="string">mysql</span></span><br><span class="line">  <span class="attr">reasonable:</span> <span class="literal">true</span></span><br><span class="line">  <span class="attr">supportMethodsArguments:</span> <span class="literal">true</span></span><br><span class="line">  <span class="attr">params:</span> <span class="string">count=countSql</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="0x01-现象描述"><a href="#0x01-现象描述" class="headerlink" title="0x01 现象描述"></a>0x01 现象描述</h3><p>同事在这个项目中新增加了一个总能，属于定时执行的，循环取数据，每次取 1000 条，但是上线后发现第一次能正常查询出数据，但是第二次往后就查询不出数据了，但是数据库中是有数据的。SQL 如下：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- sql 已经做简化处理</span></span><br><span class="line"><span class="keyword">select</span></span><br><span class="line">    <span class="operator">*</span></span><br><span class="line"><span class="keyword">from</span> $&#123;tableName&#125;</span><br><span class="line"><span class="keyword">where</span> type <span class="operator">=</span> #&#123;type,jdbcType<span class="operator">=</span><span class="type">VARCHAR</span>&#125;</span><br><span class="line">    <span class="keyword">and</span> <span class="type">time</span> <span class="operator">&gt;=</span> #&#123;<span class="type">time</span>,jdbcType<span class="operator">=</span><span class="type">TIMESTAMP</span>&#125;</span><br><span class="line">    <span class="operator">&lt;</span>if test<span class="operator">=</span>&quot;pageSize != null and pageSize != &#x27;&#x27; and pageNum!=null and pageNum!=&#x27;&#x27;&quot;<span class="operator">&gt;</span></span><br><span class="line">        limit #&#123;pageNum&#125;, #&#123;pageSize&#125;</span><br><span class="line">    <span class="operator">&lt;</span><span class="operator">/</span>if<span class="operator">&gt;</span></span><br></pre></td></tr></table></figure>
+
+
+<h3 id="0x02-问题分析"><a href="#0x02-问题分析" class="headerlink" title="0x02 问题分析"></a>0x02 问题分析</h3><p>刚刚开始以为是 sql 和数据的问题，一顿分析，将 sql 的参数参数打印出来后，用工具查询发现是能查询出数据的。由此判断不是参数以及sql 的问题，于是添加 mybatis 的参数将 sql 打印出来。</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">mybatis:</span></span><br><span class="line">  <span class="attr">configuration:</span></span><br><span class="line">    <span class="attr">log-impl:</span> <span class="string">org.apache.ibatis.logging.stdout.StdOutImpl</span></span><br></pre></td></tr></table></figure>
+
+<p>查看查询的过程， 发现每一次查询会先执行一个 count 操作，查询总数，总数查询完成后，再去执行查询操作。第一次 count 是有数据，但是第二次查询 count 查询的总数为 0，导致也就不执行查询操作了。看完查询过程后，同事说他这个不是分页，我有个疑问为啥会执行分页操作呢，但是也没多想。继续排查对比。</p>
+<p>经过对比前后两次的 count 的 sql 发现，第二次的 count 的 sql 多了一个 limit，而此时的 pageNum 和 pageSize 变成了 1，1。 count 的结果总列数就是 1，limit 1, 1 后肯定是没有结果的。</p>
+<p><img src="/images/pagehelper-supportMethodsArguments-01.jpeg" alt="image"></p>
+<h3 id="0x03-问题解决"><a href="#0x03-问题解决" class="headerlink" title="0x03 问题解决"></a>0x03 问题解决</h3><p>发现这个情况后，前面说过他应该不走分页逻辑，应该是正常自定义 limit，也就是说不应该会前置执行 count 计数查询，而应该直接去查询数据。猜想是 pageNum 和 pageSize 两个参数导致的，将参数改名后发现正常执行查询而不执行 count 操作了。</p>
+<p>那么究竟是为啥会这样呢，经过查看源码，发现在 PageParams 中有如下的逻辑：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&#125; <span class="keyword">else</span> <span class="keyword">if</span> (parameterObject <span class="keyword">instanceof</span> IPage || supportMethodsArguments) &#123;</span><br><span class="line">                <span class="keyword">try</span> &#123;</span><br><span class="line">                    page = PageObjectUtil.getPageFromObject(parameterObject, <span class="literal">false</span>);</span><br><span class="line">                &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">                    <span class="keyword">return</span> <span class="literal">null</span>;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br></pre></td></tr></table></figure>
+
+<p>如果参数实现了 IPage 接口或者 supportMethodsArguments 为 true 就会从参数中获取 pageNum 和 pageSize 参数，也就是当 supportMethodsArguments 为 true 时并且参数中有 pageNum 和 pageSize 参数时，会执行分页的相关逻辑。</p>
+<h3 id="0x04-总结"><a href="#0x04-总结" class="headerlink" title="0x04 总结"></a>0x04 总结</h3><p>总的来说，supportMethodsArguments 为 true 时需要特别注意，传递的参数中不能有 pageNum 和 pageSize 参数，否则会执行分页逻辑。</p>
+<p>带着好奇心去看了一下 pagehepler 的源码，发现某些特殊的 sql 走分页逻辑时，会重写成子查询，比如：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> so.id,so.address,so.area_code,so.area_id,so.del_flag,so.email,so.fax,so.grade,so.icon,so.master, so.name,so.parent_id,so.parent_ids,so.phone,so.remarks,so.type,so.zip_code <span class="keyword">from</span> sys_organization so <span class="keyword">LEFT</span> <span class="keyword">JOIN</span> sys_user_organization suo <span class="keyword">ON</span> (suo.org_id <span class="operator">=</span> so.id <span class="keyword">or</span> FIND_IN_SET(suo.org_id,so.parent_ids)) <span class="keyword">where</span> suo.user_id <span class="operator">=</span> ? <span class="keyword">group</span> <span class="keyword">by</span> so.id LIMIT ? &quot;</span><br></pre></td></tr></table></figure>
+
+<p>生成的 count 语句是：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="built_in">count</span>(<span class="number">0</span>) <span class="keyword">FROM</span> (<span class="keyword">SELECT</span> so.id, so.address, so.area_code, so.area_id, so.del_flag, so.email, so.fax, so.grade, so.icon, so.master, so.name, so.parent_id, so.parent_ids, so.phone, so.remarks, so.type, so.zip_code <span class="keyword">FROM</span> sys_organization so <span class="keyword">LEFT</span> <span class="keyword">JOIN</span> sys_user_organization suo <span class="keyword">ON</span> (suo.org_id <span class="operator">=</span> so.id <span class="keyword">OR</span> FIND_IN_SET(suo.org_id, so.parent_ids)) <span class="keyword">WHERE</span> suo.user_id <span class="operator">=</span> ? <span class="keyword">GROUP</span> <span class="keyword">BY</span> so.id LIMIT ?) table_count</span><br></pre></td></tr></table></figure>
+
+<p>查看了一下源码是有特殊的判断，我们遇到的那个 sql 不满条件，所以只是简单的重写了 sql，没有重写成子查询。</p>
+<p>因为是 count 语句的话其实不应该有 limit，有 limit 的话多多少少有点问题。也尝试修复了一下，虽然能重写成子查询，虽然查询 count 正常了，后续正常的查询就不正常（需要处理 sql 的参数，看逻辑后续会还拼接 limit 导致语法错误，想想也没有啥意义（虽然带了 limit但是可能也不是分页），所以还是放弃了。后续关注下，看看作者大大有没有更好的解决办法。</p>
+
+    </div>
+
+    <footer class="post-footer">
+        
+            <div class="meta-item">
+                <i class="fas fa-tags"></i>
+                
+                    <span class="tag">线上问题</span>
+                
+                    <span class="tag">pagehelper</span>
+                
+                    <span class="tag">MyBatis</span>
+                
+                    <span class="tag">MySQL</span>
+                
+            </div>
+        
+    </footer>
+</article>
+        </div>
+    </div>
+
+    <script>
+        const navToggle = document.querySelector('.nav-toggle');
+        const mobileNav = document.querySelector('.mobile-nav-menu');
+        
+        navToggle.addEventListener('click', function() {
+            mobileNav.classList.toggle('active');
+            this.classList.toggle('active');
+        });
+    </script>
+</body>
+</html>
